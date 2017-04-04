@@ -1,4 +1,4 @@
-package com.artmal.edu_tool_for_youtube.service;
+package com.artmal.edu_tool_for_youtube.service.impl;
 
 import com.artmal.edu_tool_for_youtube.dao.UserDao;
 import com.artmal.edu_tool_for_youtube.model.Role;

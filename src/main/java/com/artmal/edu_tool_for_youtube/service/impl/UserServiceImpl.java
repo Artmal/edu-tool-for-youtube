@@ -1,10 +1,11 @@
-package com.artmal.edu_tool_for_youtube.service;
+package com.artmal.edu_tool_for_youtube.service.impl;
 
 import com.artmal.edu_tool_for_youtube.dao.RoleDao;
 import com.artmal.edu_tool_for_youtube.dao.UserDao;
 import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.Role;
 import com.artmal.edu_tool_for_youtube.model.User;
+import com.artmal.edu_tool_for_youtube.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,14 @@ public class UserServiceImpl implements UserService {
         roles.add(roleDao.getOne(1L));
         user.setRoles(roles);
         userDao.save(user);
+    }
+
+    @Override
+    public void addPlaylist(User user, Playlist playlist) {
+        User currentUser = userDao.findByUsername(user.getUsername());
+        Set<Playlist> playlistSet = currentUser.getPlaylists();
+        playlistSet.add(playlist);
+        userDao.save(currentUser);
     }
 
     @Override

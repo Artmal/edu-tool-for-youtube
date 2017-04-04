@@ -1,5 +1,6 @@
-package com.artmal.edu_tool_for_youtube.service;
+package com.artmal.edu_tool_for_youtube.service.impl;
 
+import com.artmal.edu_tool_for_youtube.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

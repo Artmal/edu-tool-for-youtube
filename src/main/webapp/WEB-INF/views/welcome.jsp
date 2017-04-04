@@ -4,29 +4,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%--<c:set var="count" value="0" scope="page" />--%>
+
 <html>
 <head>
     <title>Home Page</title>
+
+    <link href="${contextPath}/resources/css/welcomePage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <c:if test="${not empty listOfPlaylists}">
-        <c:forEach items="${listOfPlaylists}" var="element">
-            <tr border="1">
-                <td>${element.id}</td>
-                <td>${element.name}</td>
-                <td>${element.channel}</td>
-                <td>${element.link}</td>
+    <div>
+        <c:if test="${not empty listOfPlaylists}">
+            <table>
+            <tr>
+                <td>ID</td>
+                <td>Playlist Name</td>
+                <td>Channel</td>
+                <td>Link</td>
             </tr>
-        </c:forEach>
-    </c:if>
+            <c:forEach items="${listOfPlaylists}" var="element">
+                <%--<c:set var="count" value="${count + 1}" scope="page"/>--%>
+                    <tr>
+                        <%--<td>${count}</td>--%>
+                        <td>${element.name}</td>
+                        <td>${element.channel}</td>
+                        <td>${element.link}</td>
+                    </tr>
+            </c:forEach>
+            </table>
+        </c:if>
 
-
-
-    <form action="${contextPath}/welcome" method="post">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <p>Add playlist</p>
-        <input type="text" name="addPlaylist_link">
-        <button type="submit">Add</button>
-    </form>
+        <form action="${contextPath}/welcome" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <p>Add playlist</p>
+            <input type="text" name="addPlaylist_link">
+            <button type="submit">Add</button>
+        </form>
+    </div>
 </body>
 </html>

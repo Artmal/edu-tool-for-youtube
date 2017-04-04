@@ -25,7 +25,7 @@
     </authentication-manager>
 
     <beans:bean id="userDetailsServiceImpl"
-                class="com.artmal.edu_tool_for_youtube.service.UserDetailsServiceImpl"></beans:bean>
+                class="com.artmal.edu_tool_for_youtube.service.impl.UserDetailsServiceImpl"></beans:bean>
 
     <beans:bean id="encoder"
                 class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">

@@ -19,7 +19,7 @@ public class Playlist {
     @Column(name = "link")
     private String link;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "playlists")
+    @ManyToMany(mappedBy = "playlists")
     private Set<User> users;
 
     public Playlist() {

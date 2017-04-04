@@ -15,5 +15,7 @@ import java.util.Set;
 public interface UserService {
     void save(User user);
 
+    void addPlaylist(User user, Playlist playlist);
+
     User findByUsername(String username);
 }

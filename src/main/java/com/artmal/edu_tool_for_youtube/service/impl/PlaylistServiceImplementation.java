@@ -1,9 +1,10 @@
-package com.artmal.edu_tool_for_youtube.service;
+package com.artmal.edu_tool_for_youtube.service.impl;
 
 import com.artmal.edu_tool_for_youtube.dao.PlaylistDao;
 import com.artmal.edu_tool_for_youtube.dao.UserDao;
 import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.User;
+import com.artmal.edu_tool_for_youtube.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -6,10 +6,6 @@ import com.artmal.edu_tool_for_youtube.service.PlaylistService;
 import com.artmal.edu_tool_for_youtube.service.SecurityService;
 import com.artmal.edu_tool_for_youtube.service.UserService;
 import com.artmal.edu_tool_for_youtube.validator.UserValidator;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,9 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -90,7 +84,7 @@ public class UserController {
 
             User user = userService.findByUsername(name);
 
-            Set<Playlist> playlistList = (Set<Playlist>) playlistService.findAllByUsers(user);
+            Set<Playlist> playlistList = playlistService.findAllByUsers(user);
 
             model.addAttribute("listOfPlaylists", playlistList);
         }
@@ -98,22 +92,8 @@ public class UserController {
         return "welcome";
     }
 
-    @RequestMapping(value = "/welcome", method = RequestMethod.POST)
-    public String addPlaylist(Model model, @RequestParam("addPlaylist_link") String link) throws IOException {
-        Document doc = Jsoup.connect("http://en.wikipedia.org/").get();
-        Elements newsHeadlines = doc.select("#mp-itn b a");
-
-        System.out.println(newsHeadlines.toString());
-
-        return "welcome";
-    }
-
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin(Model model) {
         return "admin";
-    }
-
-    public PlaylistService getPlaylistService() {
-        return playlistService;
     }
 }
