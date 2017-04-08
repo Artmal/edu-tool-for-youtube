@@ -9,7 +9,7 @@
 
     <http auto-config="true">
         <intercept-url pattern="/" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/welcome" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+        <intercept-url pattern="/list-of-playlists" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
 
         <form-login login-page="/login"
@@ -17,7 +17,7 @@
                     username-parameter="username"
                     password-parameter="password"
                     authentication-failure-url="/login?error"
-                    default-target-url="/welcome"
+                    default-target-url="/list-of-playlists"
                     always-use-default-target="true" />
 
         <logout logout-success-url="/login?logout"/>

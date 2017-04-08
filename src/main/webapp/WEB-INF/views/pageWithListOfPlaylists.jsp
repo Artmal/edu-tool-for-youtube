@@ -9,7 +9,7 @@
 
 <html>
 <head>
-    <title>Home Page</title>
+    <title>List of Playlist</title>
 
     <link href="${contextPath}/resources/css/welcomePage.css" rel="stylesheet" type="text/css">
 </head>
@@ -27,7 +27,7 @@
                 <c:set var="count" value="${count + 1}" scope="page"/>
                     <tr>
                         <td>${count}</td>
-                        <td>${element.name}</td>
+                        <td><a href="${contextPath}/playlist?id=${element.id}">${element.name}</a></td>
                         <td>${element.channel}</td>
                         <td><a href="${element.link}">${element.link}</a></td>
                     </tr>
@@ -35,7 +35,7 @@
             </table>
         </c:if>
 
-        <form:form action="${contextPath}/welcome" method="post">
+        <form:form action="${contextPath}/list-of-playlists" method="post">
             <p>Add playlist</p>
             <input type="text" name="addPlaylist_link">
             <button type="submit">Add</button>

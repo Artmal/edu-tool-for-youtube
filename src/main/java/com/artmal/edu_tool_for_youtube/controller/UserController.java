@@ -1,8 +1,8 @@
 package com.artmal.edu_tool_for_youtube.controller;
 
+import com.artmal.edu_tool_for_youtube.dao.PlaylistDao;
 import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.User;
-import com.artmal.edu_tool_for_youtube.service.PlaylistService;
 import com.artmal.edu_tool_for_youtube.service.SecurityService;
 import com.artmal.edu_tool_for_youtube.service.UserService;
 import com.artmal.edu_tool_for_youtube.service.impl.SecurityServiceImpl;
@@ -34,11 +34,11 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private PlaylistService playlistService;
-    @Autowired
     private SecurityService securityService;
     @Autowired
     private UserValidator userValidator;
+    @Autowired
+    private PlaylistDao playlistService;
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
@@ -74,7 +74,7 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/list-of-playlists"}, method = RequestMethod.GET)
     public String welcome(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -87,7 +87,7 @@ public class UserController {
             model.addAttribute("listOfPlaylists", playlistList);
         }
 
-        return "welcome";
+        return "pageWithListOfPlaylists";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)

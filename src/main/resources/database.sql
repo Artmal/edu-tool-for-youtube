@@ -55,3 +55,12 @@ CREATE TABLE users_playlists(
   PRIMARY KEY(user_id, playlist_id)
 )
   ENGINE = InnoDB;
+
+CREATE TABLE videos(
+  id int AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  duration VARCHAR(255) NOT NULL,
+  isCompleted BOOLEAN NOT NULL,
+  playlist_id int NOT NULL
+)
+  ENGINE = InnoDB;

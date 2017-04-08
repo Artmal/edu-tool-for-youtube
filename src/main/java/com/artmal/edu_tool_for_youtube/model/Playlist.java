@@ -1,6 +1,7 @@
 package com.artmal.edu_tool_for_youtube.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,6 +22,9 @@ public class Playlist {
 
     @ManyToMany(mappedBy = "playlists")
     private Set<User> users;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "playlist")
+    private Set<Video> videos = new HashSet<>();
 
     public Playlist() {
     }
@@ -67,5 +71,11 @@ public class Playlist {
     }
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+    public Set<Video> getVideos() {
+        return videos;
+    }
+    public void setVideos(Set<Video> videos) {
+        this.videos = videos;
     }
 }
