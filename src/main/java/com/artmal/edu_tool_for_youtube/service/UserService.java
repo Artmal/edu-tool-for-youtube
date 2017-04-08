@@ -18,4 +18,6 @@ public interface UserService {
     void addPlaylist(User user, Playlist playlist);
 
     User findByUsername(String username);
+
+    void removeUserByUsername(String username);
 }

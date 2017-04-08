@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
     }
+
+    @Override
+    public void removeUserByUsername(String username) {
+        userDao.removeUserByUsername(username);
+    }
 }

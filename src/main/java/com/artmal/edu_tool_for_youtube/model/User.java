@@ -20,7 +20,7 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "pass")
     private String password;
 
     @Transient
@@ -31,10 +31,21 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_playlists", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "playlist_id"))
     private Set<Playlist> playlists;
+
+    public User() {
+    }
+
+    public User(String username, String password, String confirmPassword, Set<Role> roles, Set<Playlist> playlists) {
+        this.username = username;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+        this.roles = roles;
+        this.playlists = playlists;
+    }
 
     public Long getId() {
         return id;

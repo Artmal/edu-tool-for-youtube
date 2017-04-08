@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%--<c:set var="count" value="0" scope="page" />--%>
+<c:set var="count" value="0" scope="page" />
 
 <html>
 <head>
@@ -24,23 +24,22 @@
                 <td>Link</td>
             </tr>
             <c:forEach items="${listOfPlaylists}" var="element">
-                <%--<c:set var="count" value="${count + 1}" scope="page"/>--%>
+                <c:set var="count" value="${count + 1}" scope="page"/>
                     <tr>
-                        <%--<td>${count}</td>--%>
+                        <td>${count}</td>
                         <td>${element.name}</td>
                         <td>${element.channel}</td>
-                        <td>${element.link}</td>
+                        <td><a href="${element.link}">${element.link}</a></td>
                     </tr>
             </c:forEach>
             </table>
         </c:if>
 
-        <form action="${contextPath}/welcome" method="post">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <form:form action="${contextPath}/welcome" method="post">
             <p>Add playlist</p>
             <input type="text" name="addPlaylist_link">
             <button type="submit">Add</button>
-        </form>
+        </form:form>
     </div>
 </body>
 </html>

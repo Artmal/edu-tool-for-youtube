@@ -32,6 +32,12 @@ public class Playlist {
         this.users = users;
     }
 
+    public Playlist(String name, String channel, String link) {
+        this.name = name;
+        this.channel = channel;
+        this.link = link;
+    }
+
     public long getId() {
         return id;
     }

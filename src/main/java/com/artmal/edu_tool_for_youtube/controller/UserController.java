@@ -5,7 +5,10 @@ import com.artmal.edu_tool_for_youtube.model.User;
 import com.artmal.edu_tool_for_youtube.service.PlaylistService;
 import com.artmal.edu_tool_for_youtube.service.SecurityService;
 import com.artmal.edu_tool_for_youtube.service.UserService;
+import com.artmal.edu_tool_for_youtube.service.impl.SecurityServiceImpl;
 import com.artmal.edu_tool_for_youtube.validator.UserValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,25 +33,23 @@ import java.util.Set;
 public class UserController {
     @Autowired
     private UserService userService;
-
     @Autowired
     private PlaylistService playlistService;
-
     @Autowired
     private SecurityService securityService;
-
     @Autowired
     private UserValidator userValidator;
+
+    private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
-
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -56,9 +57,7 @@ public class UserController {
         }
 
         userService.save(userForm);
-
         securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
-
         return "redirect:/welcome";
     }
 
@@ -81,7 +80,6 @@ public class UserController {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String name = auth.getName();
-
             User user = userService.findByUsername(name);
 
             Set<Playlist> playlistList = playlistService.findAllByUsers(user);

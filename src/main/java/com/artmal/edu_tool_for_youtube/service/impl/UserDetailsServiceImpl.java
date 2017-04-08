@@ -23,7 +23,6 @@ import java.util.Set;
 
 
 public class UserDetailsServiceImpl implements UserDetailsService {
-
     @Autowired
     private UserDao userDao;
 

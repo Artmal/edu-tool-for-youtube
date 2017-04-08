@@ -15,9 +15,6 @@ public class PlaylistServiceImplementation implements PlaylistService {
     @Autowired
     private PlaylistDao playlistDao;
 
-    @Autowired
-    private UserDao userDao;
-
     @Override
     public long save(Playlist playlist) {
         if(playlistDao.findByLink(playlist.getLink()) != null) {
