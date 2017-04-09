@@ -20,6 +20,12 @@ public class Playlist {
     @Column(name = "link")
     private String link;
 
+    @Column(name = "amount_of_completed_videos")
+    private int amountOfCompletedVideos = 0;
+
+    @Column(name = "amount_of_videos")
+    private int amountOfVideos;
+
     @ManyToMany(mappedBy = "playlists")
     private Set<User> users;
 
@@ -36,10 +42,11 @@ public class Playlist {
         this.users = users;
     }
 
-    public Playlist(String name, String channel, String link) {
+    public Playlist(String name, String channel, String link, int amountOfVideos) {
         this.name = name;
         this.channel = channel;
         this.link = link;
+        this.amountOfVideos = amountOfVideos;
     }
 
     public long getId() {
@@ -77,5 +84,17 @@ public class Playlist {
     }
     public void setVideos(Set<Video> videos) {
         this.videos = videos;
+    }
+    public int getAmountOfVideos() {
+        return amountOfVideos;
+    }
+    public void setAmountOfVideos(int amountOfVideos) {
+        this.amountOfVideos = amountOfVideos;
+    }
+    public int getAmountOfCompletedVideos() {
+        return amountOfCompletedVideos;
+    }
+    public void setAmountOfCompletedVideos(int amountOfCompletedVideos) {
+        this.amountOfCompletedVideos = amountOfCompletedVideos;
     }
 }

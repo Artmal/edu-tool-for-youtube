@@ -8,7 +8,6 @@ package com.artmal.edu_tool_for_youtube.service;
  */
 
 public interface SecurityService {
-
     String findLoggedInUsername();
 
     void autoLogin(String username, String password);

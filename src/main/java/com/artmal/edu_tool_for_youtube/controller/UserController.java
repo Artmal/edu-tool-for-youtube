@@ -58,7 +58,7 @@ public class UserController {
 
         userService.save(userForm);
         securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
-        return "redirect:/welcome";
+        return "redirect:/list-of-playlists";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

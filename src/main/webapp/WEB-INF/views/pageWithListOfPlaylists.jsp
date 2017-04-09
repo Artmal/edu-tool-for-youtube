@@ -14,6 +14,8 @@
     <link href="${contextPath}/resources/css/welcomePage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+    <%@include file="../../resources/header.jsp" %>
+
     <div>
         <c:if test="${not empty listOfPlaylists}">
             <table>
@@ -22,6 +24,7 @@
                 <td>Playlist Name</td>
                 <td>Channel</td>
                 <td>Link</td>
+                <td>Progress</td>
             </tr>
             <c:forEach items="${listOfPlaylists}" var="element">
                 <c:set var="count" value="${count + 1}" scope="page"/>
@@ -30,6 +33,7 @@
                         <td><a href="${contextPath}/playlist?id=${element.id}">${element.name}</a></td>
                         <td>${element.channel}</td>
                         <td><a href="${element.link}">${element.link}</a></td>
+                        <td>${element.amountOfCompletedVideos}/${element.amountOfVideos}</td>
                     </tr>
             </c:forEach>
             </table>

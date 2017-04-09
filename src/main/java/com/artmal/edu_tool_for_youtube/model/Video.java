@@ -61,4 +61,15 @@ public class Video {
     public void setCompleted(boolean completed) {
         isCompleted = completed;
     }
+
+    @Override
+    public String toString() {
+        return "Video{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", duration='" + duration + '\'' +
+                ", isCompleted=" + isCompleted +
+                ", playlist=" + playlist +
+                '}';
+    }
 }

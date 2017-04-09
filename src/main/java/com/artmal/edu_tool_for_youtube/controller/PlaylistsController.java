@@ -6,13 +6,10 @@ import com.artmal.edu_tool_for_youtube.model.Video;
 import com.artmal.edu_tool_for_youtube.service.PlaylistService;
 import com.artmal.edu_tool_for_youtube.service.UserService;
 import com.artmal.edu_tool_for_youtube.service.VideoService;
-import com.artmal.edu_tool_for_youtube.service.impl.SecurityServiceImpl;
 import com.artmal.edu_tool_for_youtube.utils.HtmlParser;
 import org.hibernate.Hibernate;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,7 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-public class PlaylistsPageController {
+public class PlaylistsController {
     @Autowired
     private PlaylistService playlistService;
     @Autowired
@@ -49,7 +46,7 @@ public class PlaylistsPageController {
             currentUser = userService.findByUsername(name);
         }
 
-        Playlist newPlaylist = HtmlParser.initilizePlaylist(link);
+        Playlist newPlaylist = HtmlParser.initializePlaylist(link);
         playlistService.save(newPlaylist);
         Hibernate.initialize(currentUser.getPlaylists());
         currentUser.getPlaylists().add(newPlaylist);

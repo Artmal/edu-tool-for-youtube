@@ -13,26 +13,28 @@
     <link href="${contextPath}/resources/css/welcomePage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div>
-    <c:if test="${not empty listOfVideos}">
-        <table>
-            <tr>
-                <td>ID</td>
-                <td>Video Title</td>
-                <td>Video Duration</td>
-                <td>Completed?</td>
-            </tr>
-            <c:forEach items="${listOfVideos}" var="element">
-                <c:set var="count" value="${count + 1}" scope="page"/>
+    <%@include file="../../resources/header.jsp" %>
+
+    <div>
+        <c:if test="${not empty listOfVideos}">
+            <table>
                 <tr>
-                    <td>${count}</td>
-                    <td>${element.title}</td>
-                    <td>${element.duration}</td>
-                    <td>${element.completed}</td>
+                    <td>ID</td>
+                    <td>Video Title</td>
+                    <td>Video Duration</td>
+                    <td>Completed?</td>
                 </tr>
-            </c:forEach>
-        </table>
-    </c:if>
-</div>
+                <c:forEach items="${listOfVideos}" var="element">
+                    <c:set var="count" value="${count + 1}" scope="page"/>
+                    <tr>
+                        <td>${count}</td>
+                        <td>${element.title}</td>
+                        <td>${element.duration}</td>
+                        <td><a href="/playlist/change?id=${element.id}">${element.completed}</a></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
+    </div>
 </body>
 </html>

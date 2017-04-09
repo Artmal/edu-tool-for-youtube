@@ -8,4 +8,6 @@ public interface VideoService  {
     void save(Video video);
 
     List<Video> getAllByPlaylistId(long playlistId);
+
+    Video findById(long id);
 }

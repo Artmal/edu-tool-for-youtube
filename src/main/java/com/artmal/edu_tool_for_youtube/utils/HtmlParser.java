@@ -23,20 +23,22 @@ public class HtmlParser {
     public static List<String> getVideoDurations(Document doc) {
         List<String> durations = new ArrayList<>();
         Elements elementsWithDuration = doc.select("span[aria-label]");
-        //First 4 values in HTML are not durations
-        for(int i = 4; i < elementsWithDuration.size(); i++) {
-            durations.add(elementsWithDuration.get(i).text());
+        for(int i = 0; i < elementsWithDuration.size(); i++) {
+            if(elementsWithDuration.get(i).text().contains(":")) {
+                durations.add(elementsWithDuration.get(i).text());
+            }
         }
 
         return durations;
     }
 
-    public static Playlist initilizePlaylist(String link) throws IOException {
+    public static Playlist initializePlaylist(String link) throws IOException {
         Document doc = Jsoup.connect(link).get();
         String playlistTitleWithYoutubeBenchmark = doc.getElementsByTag("title").first().text();
         String playlistTitle = playlistTitleWithYoutubeBenchmark.substring(0, playlistTitleWithYoutubeBenchmark.lastIndexOf("-"));
         String channelTitle = doc.select("a[data-ytid]").first().text();
+        int amountOfVideos = getVideoTitles(doc).size();
 
-        return new Playlist(playlistTitle, channelTitle, link);
+        return new Playlist(playlistTitle, channelTitle, link, amountOfVideos);
     }
 }

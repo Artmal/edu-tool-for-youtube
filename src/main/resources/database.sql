@@ -42,6 +42,8 @@ CREATE TABLE playlists(
   name VARCHAR(255) NOT NULL,
   channel VARCHAR(255) NOT NULL,
   link VARCHAR(255) NOT NULL,
+  amount_of_completed_videos INT,
+  amount_of_videos INT,
 
   UNIQUE (name, link)
 )

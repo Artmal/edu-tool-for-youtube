@@ -22,4 +22,9 @@ public class VideoServiceImpl implements VideoService {
     public List<Video> getAllByPlaylistId(long playlistId) {
         return videoDao.getAllByPlaylistId(playlistId);
     }
+
+    @Override
+    public Video findById(long id) {
+        return videoDao.findById(id);
+    }
 }
