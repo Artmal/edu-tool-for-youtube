@@ -32,6 +32,20 @@ public class HtmlParser {
         return durations;
     }
 
+    public static List<String> getVideoCodes(Document doc) {
+        List<String> videoCodes = new ArrayList<>();
+        Elements elementsWithVideoCodes = doc.select("button[data-video-ids]");
+        for(int i = 0; i < elementsWithVideoCodes.size(); i++) {
+            String videoCode = elementsWithVideoCodes.get(i).attr("data-video-ids");
+            if(!videoCodes.contains(videoCode)) {
+                videoCodes.add(videoCode);
+            }
+        }
+
+
+        return videoCodes;
+    }
+
     public static Playlist initializePlaylist(String link) throws IOException {
         Document doc = Jsoup.connect(link).get();
         String playlistTitleWithYoutubeBenchmark = doc.getElementsByTag("title").first().text();
@@ -41,4 +55,5 @@ public class HtmlParser {
 
         return new Playlist(playlistTitle, channelTitle, link, amountOfVideos);
     }
+
 }

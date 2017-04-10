@@ -25,6 +25,9 @@
 </style>
 
 <ul>
-    <li><a class="active" href="/list-of-playlists">My Playlists</a></li>
-    <li><a href="/profile">My Profile</a></li>
+    <li><a class="active" href="/profile">My Profile</a></li>
+    <li><a href="/list-of-subjects">My Subjects</a></li>
+    <li><a href="/list-of-playlists">My Playlists</a></li>
 </ul>
+
+<br>

@@ -10,10 +10,12 @@
 <head>
     <title>Playlist page</title>
 
-    <link href="${contextPath}/resources/css/welcomePage.css" rel="stylesheet" type="text/css">
+    <link href="${contextPath}/resources/css/playlistPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <%@include file="../../resources/header.jsp" %>
+
+    <a class="deleteButton" href="/playlist/delete?id=${playlistId}" onclick="return confirm('Are you sure?');">Delete Playlist</a>
 
     <div>
         <c:if test="${not empty listOfVideos}">
@@ -28,7 +30,7 @@
                     <c:set var="count" value="${count + 1}" scope="page"/>
                     <tr>
                         <td>${count}</td>
-                        <td>${element.title}</td>
+                        <td><a href="/video?id=${element.id}">${element.title}</a></td>
                         <td>${element.duration}</td>
                         <td><a href="/playlist/change?id=${element.id}">${element.completed}</a></td>
                     </tr>

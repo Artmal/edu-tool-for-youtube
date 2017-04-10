@@ -6,7 +6,12 @@ import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.User;
 import com.artmal.edu_tool_for_youtube.model.Video;
 import com.artmal.edu_tool_for_youtube.service.PlaylistService;
+import com.artmal.edu_tool_for_youtube.service.VideoNoteService;
+import com.artmal.edu_tool_for_youtube.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +21,12 @@ import java.util.Set;
 public class PlaylistServiceImpl implements PlaylistService {
     @Autowired
     private PlaylistDao playlistDao;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private VideoNoteService videoNoteService;
+    @Autowired
+    private VideoService videoService;
 
     @Override
     public long save(Playlist playlist) {
@@ -48,5 +59,29 @@ public class PlaylistServiceImpl implements PlaylistService {
             }
         }
         return null;
+    }
+
+    @Override
+    public void deleteById(long id) {
+        Playlist playlist = playlistDao.findById(id);
+        User currentUser = null;
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String name = auth.getName();
+            currentUser = userDao.findByUsername(name);
+        }
+
+        List<Video> videosOfThePlaylist = videoService.findAllByPlaylist(playlist);
+        for(Video video: videosOfThePlaylist) {
+            videoNoteService.removeAllByVideo(video);
+        }
+
+        videoService.removeAllByPlaylist(playlist);
+
+        currentUser.getPlaylists().remove(playlist);
+        playlistDao.delete(id);
+
     }
 }

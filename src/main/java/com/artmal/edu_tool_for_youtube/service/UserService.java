@@ -3,8 +3,6 @@ package com.artmal.edu_tool_for_youtube.service;
 import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.User;
 
-import java.util.Set;
-
 /**
  * Service class for {@link com.artmal.edu_tool_for_youtube.model.User}
  *
@@ -14,10 +12,8 @@ import java.util.Set;
 
 public interface UserService {
     void save(User user);
-
     void addPlaylist(User user, Playlist playlist);
-
     User findByUsername(String username);
-
     void removeUserByUsername(String username);
+    User findByPlaylistsContaining(Playlist playlist);
 }

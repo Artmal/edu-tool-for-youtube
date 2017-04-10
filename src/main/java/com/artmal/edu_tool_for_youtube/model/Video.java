@@ -1,6 +1,15 @@
 package com.artmal.edu_tool_for_youtube.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Simple JavaBean domain object that represents a Video from Youtube.
+ *
+ * @author Artem Malchenko
+ * @version 1.0
+ */
 
 @Entity
 @Table(name = "videos")
@@ -12,6 +21,9 @@ public class Video {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "video_code")
+    private String videoCode;
+
     @Column(name = "duration")
     private String duration;
 
@@ -22,12 +34,16 @@ public class Video {
     @JoinColumn(name = "playlist_id", nullable = false)
     private Playlist playlist;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "video")
+    private Set<VideoNote> notes = new HashSet<>();
+
     public Video() {
     }
 
-    public Video(String title, String duration) {
+    public Video(String title, String duration, String videoCode) {
         this.title = title;
         this.duration = duration;
+        this.videoCode = videoCode;
 
     }
 
@@ -61,15 +77,16 @@ public class Video {
     public void setCompleted(boolean completed) {
         isCompleted = completed;
     }
-
-    @Override
-    public String toString() {
-        return "Video{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", duration='" + duration + '\'' +
-                ", isCompleted=" + isCompleted +
-                ", playlist=" + playlist +
-                '}';
+    public String getVideoCode() {
+        return videoCode;
+    }
+    public void setVideoCode(String videoCode) {
+        this.videoCode = videoCode;
+    }
+    public Set<VideoNote> getNotes() {
+        return notes;
+    }
+    public void setNotes(Set<VideoNote> notes) {
+        this.notes = notes;
     }
 }

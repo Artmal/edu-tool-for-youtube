@@ -61,8 +61,20 @@ CREATE TABLE users_playlists(
 CREATE TABLE videos(
   id int AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
+  video_code VARCHAR(255) NOT NULL,
   duration VARCHAR(255) NOT NULL,
   isCompleted BOOLEAN NOT NULL,
+  notes TEXT,
   playlist_id int NOT NULL
+)
+  ENGINE = InnoDB;
+
+CREATE TABLE video_notes(
+  id int AUTO_INCREMENT PRIMARY KEY,
+  note TEXT NOT NULL,
+  date VARCHAR(30) NOT NULL,
+  video_id int NOT NULL,
+
+  FOREIGN KEY(video_id) REFERENCES videos(id)
 )
   ENGINE = InnoDB;

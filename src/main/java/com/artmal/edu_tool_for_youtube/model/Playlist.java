@@ -4,6 +4,13 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Simple JavaBean domain object that represents a Youtube Playlist.
+ *
+ * @author Artem Malchenko
+ * @version 1.0
+ */
+
 @Entity
 @Table(name = "playlists")
 public class Playlist {

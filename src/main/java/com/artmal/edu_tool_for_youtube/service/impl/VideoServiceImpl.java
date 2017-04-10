@@ -1,6 +1,7 @@
 package com.artmal.edu_tool_for_youtube.service.impl;
 
 import com.artmal.edu_tool_for_youtube.dao.VideoDao;
+import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.Video;
 import com.artmal.edu_tool_for_youtube.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,15 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public Video findById(long id) {
         return videoDao.findById(id);
+    }
+
+    @Override
+    public List<Video> findAllByPlaylist(Playlist playlist) {
+        return videoDao.findAllByPlaylist(playlist);
+    }
+
+    @Override
+    public void removeAllByPlaylist(Playlist playlist) {
+        videoDao.removeAllByPlaylist(playlist);
     }
 }

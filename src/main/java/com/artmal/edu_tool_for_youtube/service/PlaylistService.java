@@ -2,7 +2,6 @@ package com.artmal.edu_tool_for_youtube.service;
 
 import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.User;
-import com.artmal.edu_tool_for_youtube.model.Video;
 
 import java.util.Set;
 
@@ -12,4 +11,6 @@ public interface PlaylistService {
     Playlist findById(long id);
     Set<Playlist> findAllByUsers(User user);
     Playlist findByVideoId(long id);
+
+    void deleteById(long id);
 }

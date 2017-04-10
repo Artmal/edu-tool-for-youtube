@@ -1,0 +1,53 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) {
+    background: #eee;
+}
+th {
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+td, th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+input[type="text"]{
+    border: 2px solid #bbb;
+    display: block;
+    font-size: 18px;
+    height: 24px;
+    margin: 4px 0;
+    padding: 0;
+    width: 100%;
+}
+
+.deleteButton {
+    background-color:#f51818;
+    -moz-border-radius:1px;
+    -webkit-border-radius:1px;
+    border-radius:1px;
+    border:1px solid #000000;
+    display:inline-block;
+    cursor:pointer;
+    color:#fafafa;
+    font-family:Arial;
+    font-size:13px;
+    font-weight:bold;
+    padding:5px 12px;
+    text-decoration:none;
+    float: right;
+}
+.deleteButton:hover {
+    background-color:#fc0000;
+}
+.deleteButton:active {
+    position:relative;
+    top:1px;
+}
+

@@ -54,9 +54,10 @@ public class PlaylistsController {
         Document doc = Jsoup.connect(link).get();
         List<String> videoTitles = HtmlParser.getVideoTitles(doc);
         List<String> durations = HtmlParser.getVideoDurations(doc);
+        List<String> videoCodes = HtmlParser.getVideoCodes(doc);
 
         for(int i = 0; i < videoTitles.size(); i++) {
-            Video video = new Video(videoTitles.get(i), durations.get(i));
+            Video video = new Video(videoTitles.get(i), durations.get(i), videoCodes.get(i));
             video.setPlaylist(newPlaylist);
             Hibernate.initialize(newPlaylist.getVideos());
             newPlaylist.getVideos().add(video);
@@ -72,6 +73,7 @@ public class PlaylistsController {
     public String showPlaylist(Model model, @RequestParam("id") long id) {
         List<Video> listOfVideos = videoService.getAllByPlaylistId(id);
         model.addAttribute("listOfVideos", listOfVideos);
+        model.addAttribute("playlistId", id);
         return "playlistPage";
     }
 }
