@@ -24,10 +24,8 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
-
     @Autowired
     private RoleDao roleDao;
-
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 

@@ -41,7 +41,17 @@
 
         <form:form action="${contextPath}/list-of-playlists" method="post">
             <p>Add playlist</p>
-            <input type="text" name="addPlaylist_link">
+
+            <c:if test="${not empty listOfSubjects}">
+                <select name="addPlaylist_subjectFromSelect">
+                    <c:forEach items="${listOfSubjects}" var="subject">
+                        <option>${subject.title}</option>
+                    </c:forEach>
+                </select>
+            </c:if>
+
+            <input type="text" name="addPlaylist_subject" placeholder="Subject the playlist belongs to">
+            <input type="text" name="addPlaylist_link" placeholder="Past playlist link here">
             <button type="submit">Add</button>
         </form:form>
     </div>

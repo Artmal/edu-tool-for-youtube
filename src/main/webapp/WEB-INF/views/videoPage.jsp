@@ -12,29 +12,24 @@
 
     <link href="${contextPath}/resources/css/videoPage.css" rel="stylesheet" type="text/css">
 
-    <script type="text/javascript">
-        //auto expand textarea
-        function adjust_textarea(h) {
-            h.style.height = "20px";
-            h.style.height = (h.scrollHeight)+"px";
-        }
-    </script>
+    <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+    <script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+
 </head>
 <body>
     <%@include file="../../resources/header.jsp" %>
-
+    <br>
 
     <div class="wrapper">
         <div class="left_block">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoCode}" frameborder="0" allowfullscreen></iframe>
+            <iframe style = "border: 1px solid black" width="560" height="315" src="https://www.youtube.com/embed/${videoCode}" frameborder="0" allowfullscreen></iframe>
             <br><br>
             <a href="/setVideoAsCompleted?id=${video_id}" class="completeButton">Completed</a>
         </div>
 
         <div class="right_block">
             <form:form action="/addNote?video_id=${video_id}" method="post">
-                <input name="note" type="text" placeholder="Your notes..."/>
-                <br>
+                <textarea name="note"></textarea>
                 <button type="submit">Submit Notes</button>
             </form:form>
         </div>
@@ -42,18 +37,16 @@
 
     <br>
 
-    <div>
-        <p1 align = "center">My Notes</p1>
-    </div>
-
+    <div class="wrapper">
     <c:if test="${not empty video_notes}">
         <c:forEach items="${video_notes}" var="element">
             <p1>${element.date}</p1>
             <div style="border: 1px solid black; padding: 2px">
-                <p>${element.note}</p>
+                ${element.note}
             </div>
             <br>
         </c:forEach>
     </c:if>
+    </div>
 </body>
 </html>

@@ -42,6 +42,7 @@ CREATE TABLE playlists(
   name VARCHAR(255) NOT NULL,
   channel VARCHAR(255) NOT NULL,
   link VARCHAR(255) NOT NULL,
+  subject_id INT NOT NULL,
   amount_of_completed_videos INT,
   amount_of_videos INT,
 
@@ -76,5 +77,14 @@ CREATE TABLE video_notes(
   video_id int NOT NULL,
 
   FOREIGN KEY(video_id) REFERENCES videos(id)
+)
+  ENGINE = InnoDB;
+
+CREATE TABLE subjects(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  user_id INT NOT NULL,
+
+  FOREIGN KEY (user_id) REFERENCES users(id)
 )
   ENGINE = InnoDB;

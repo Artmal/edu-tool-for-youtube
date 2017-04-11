@@ -1,9 +1,11 @@
 package com.artmal.edu_tool_for_youtube.controller;
 
 import com.artmal.edu_tool_for_youtube.model.Playlist;
+import com.artmal.edu_tool_for_youtube.model.Subject;
 import com.artmal.edu_tool_for_youtube.model.User;
 import com.artmal.edu_tool_for_youtube.model.Video;
 import com.artmal.edu_tool_for_youtube.service.PlaylistService;
+import com.artmal.edu_tool_for_youtube.service.SubjectService;
 import com.artmal.edu_tool_for_youtube.service.UserService;
 import com.artmal.edu_tool_for_youtube.service.VideoService;
 import com.artmal.edu_tool_for_youtube.utils.HtmlParser;
@@ -11,7 +13,6 @@ import org.hibernate.Hibernate;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -33,20 +34,20 @@ public class PlaylistsController {
     private UserService userService;
     @Autowired
     private VideoService videoService;
+    @Autowired
+    SubjectService subjectService;
 
     @Transactional
     @RequestMapping(value = "/list-of-playlists", method = RequestMethod.POST)
-    public String addPlaylist(Model model, @RequestParam("addPlaylist_link") String link) throws IOException {
-        User currentUser = null;
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            String name = auth.getName();
-            currentUser = userService.findByUsername(name);
-        }
+    public String addPlaylist(Model model, @RequestParam("addPlaylist_link") String link,
+                              @RequestParam("addPlaylist_subject") String subjectTitle) throws IOException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userService.findByUsername(auth.getName());
 
         Playlist newPlaylist = HtmlParser.initializePlaylist(link);
+        Subject subject = new Subject(subjectTitle, currentUser);
+        newPlaylist.setSubject(subject);
+
         playlistService.save(newPlaylist);
         Hibernate.initialize(currentUser.getPlaylists());
         currentUser.getPlaylists().add(newPlaylist);
@@ -65,6 +66,9 @@ public class PlaylistsController {
         }
 
         Set<Playlist> playlistList = playlistService.findAllByUsers(currentUser);
+        Set<Subject> subjects = subjectService.findAllByUser(currentUser);
+
+        model.addAttribute("listOfSubjects", subjects);
         model.addAttribute("listOfPlaylists", playlistList);
         return "pageWithListOfPlaylists";
     }

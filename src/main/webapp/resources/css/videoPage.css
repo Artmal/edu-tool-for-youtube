@@ -15,19 +15,15 @@ div.left_block {
 }
 
 div.right_block {
-    position: absolute;
-    bottom:0;
-    left: 560px;
-    right:0;
-    top:0;
-    text-align: center;
+    position: relative;
+    width: 50%;
     padding: 5px;
     float: right;
     height: 315px;
 }
 
-input {
-    height: 80%;
+textarea {
+    height: 100%;
     width: 98%;
 }
 

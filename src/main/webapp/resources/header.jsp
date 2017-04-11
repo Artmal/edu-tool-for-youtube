@@ -29,5 +29,3 @@
     <li><a href="/list-of-subjects">My Subjects</a></li>
     <li><a href="/list-of-playlists">My Playlists</a></li>
 </ul>
-
-<br>

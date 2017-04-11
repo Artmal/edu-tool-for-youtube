@@ -14,6 +14,7 @@
 </head>
 <body>
     <%@include file="../../resources/header.jsp" %>
+    <br>
 
     <a class="deleteButton" href="/playlist/delete?id=${playlistId}" onclick="return confirm('Are you sure?');">Delete Playlist</a>
 

@@ -69,6 +69,8 @@ public class VideoController {
         Video video = videoService.findById(videoId);
         Playlist playlistContainingTheVideo = playlistService.findByVideoId(video.getId());
 
+
+
         boolean currentValueOfCompleteness = video.isCompleted();
         if(currentValueOfCompleteness) {
             video.setCompleted(!video.isCompleted());

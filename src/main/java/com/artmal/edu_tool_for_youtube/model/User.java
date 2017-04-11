@@ -36,6 +36,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "playlist_id"))
     private Set<Playlist> playlists;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Subject> subjects;
+
     public User() {
     }
 

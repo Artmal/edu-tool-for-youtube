@@ -8,9 +8,7 @@ import java.util.List;
 
 public interface VideoDao extends JpaRepository<Video, Long> {
     List<Video> getAllByPlaylistId(long playlistId);
-
     Video findById(long id);
-
     void removeAllByPlaylist(Playlist playlist);
     List<Video> findAllByPlaylist(Playlist playlist);
 }

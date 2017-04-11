@@ -11,7 +11,6 @@ import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -44,14 +43,15 @@ public class PlaylistController {
         Playlist playlistContainingTheVideo = playlistService.findByVideoId(video.getId());
 
         boolean currentValueOfCompleteness = video.isCompleted();
-        if(currentValueOfCompleteness) {
+        if (currentValueOfCompleteness) {
             video.setCompleted(!video.isCompleted());
             playlistContainingTheVideo.setAmountOfCompletedVideos(playlistContainingTheVideo.getAmountOfCompletedVideos() - 1);
 
             List<Video> listOfVideos = videoService.getAllByPlaylistId(playlistContainingTheVideo.getId());
             model.addAttribute("listOfVideos", listOfVideos);
         } else {
-            video.setCompleted(!video.isCompleted());;
+            video.setCompleted(!video.isCompleted());
+            ;
             playlistContainingTheVideo.setAmountOfCompletedVideos(playlistContainingTheVideo.getAmountOfCompletedVideos() + 1);
 
             List<Video> listOfVideos = videoService.getAllByPlaylistId(playlistContainingTheVideo.getId());
@@ -66,17 +66,12 @@ public class PlaylistController {
     public String deletePlaylist(Model model, @RequestParam("id") long playlistId) {
         playlistService.deleteById(playlistId);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            String name = auth.getName();
-            User user = userService.findByUsername(name);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByUsername(auth.getName());
 
-            Set<Playlist> playlistList = playlistService.findAllByUsers(user);
+        Set<Playlist> playlistList = playlistService.findAllByUsers(user);
 
-            model.addAttribute("listOfPlaylists", playlistList);
-        }
-
+        model.addAttribute("listOfPlaylists", playlistList);
         return "pageWithListOfPlaylists";
     }
 }

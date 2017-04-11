@@ -39,6 +39,10 @@ public class Playlist {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "playlist")
     private Set<Video> videos = new HashSet<>();
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "subject_id", nullable = false)
+    private Subject subject;
+
     public Playlist() {
     }
 
@@ -103,5 +107,11 @@ public class Playlist {
     }
     public void setAmountOfCompletedVideos(int amountOfCompletedVideos) {
         this.amountOfCompletedVideos = amountOfCompletedVideos;
+    }
+    public Subject getSubject() {
+        return subject;
+    }
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 }

@@ -10,7 +10,6 @@ import com.artmal.edu_tool_for_youtube.validator.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -76,17 +75,12 @@ public class UserController {
 
     @RequestMapping(value = {"/", "/list-of-playlists"}, method = RequestMethod.GET)
     public String welcome(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            String name = auth.getName();
-            User user = userService.findByUsername(name);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByUsername(auth.getName());
 
-            Set<Playlist> playlistList = playlistService.findAllByUsers(user);
+        Set<Playlist> playlistList = playlistService.findAllByUsers(user);
 
-            model.addAttribute("listOfPlaylists", playlistList);
-        }
-
+        model.addAttribute("listOfPlaylists", playlistList);
         return "pageWithListOfPlaylists";
     }
 

@@ -44,7 +44,6 @@ public class Video {
         this.title = title;
         this.duration = duration;
         this.videoCode = videoCode;
-
     }
 
     public long getId() {

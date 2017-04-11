@@ -10,6 +10,4 @@ public interface PlaylistDao extends JpaRepository<Playlist, Long>{
     Playlist findByLink(String link);
     Playlist findById(long id);
     Set<Playlist> findAllByUsers(User user);
-
-    void deleteById(long id);
 }
