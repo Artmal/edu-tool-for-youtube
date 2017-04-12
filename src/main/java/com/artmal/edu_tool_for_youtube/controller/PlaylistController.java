@@ -6,10 +6,7 @@ import com.artmal.edu_tool_for_youtube.model.Video;
 import com.artmal.edu_tool_for_youtube.service.PlaylistService;
 import com.artmal.edu_tool_for_youtube.service.UserService;
 import com.artmal.edu_tool_for_youtube.service.VideoService;
-import com.artmal.edu_tool_for_youtube.service.impl.SecurityServiceImpl;
 import org.hibernate.Hibernate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,8 +28,6 @@ public class PlaylistController {
     PlaylistService playlistService;
     @Autowired
     UserService userService;
-
-    private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
     @Transactional
     @RequestMapping(value = "/playlist/change", method = RequestMethod.GET)

@@ -45,8 +45,14 @@ public class PlaylistsController {
         User currentUser = userService.findByUsername(auth.getName());
 
         Playlist newPlaylist = HtmlParser.initializePlaylist(link);
-        Subject subject = new Subject(subjectTitle, currentUser);
-        newPlaylist.setSubject(subject);
+
+        if(subjectService.findByTitle(subjectTitle) != null) {
+            newPlaylist.setSubject(subjectService.findByTitle((subjectTitle)));
+
+        } else {
+            Subject subject = new Subject(subjectTitle, currentUser);
+            newPlaylist.setSubject(subject);
+        }
 
         playlistService.save(newPlaylist);
         Hibernate.initialize(currentUser.getPlaylists());

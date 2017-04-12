@@ -4,6 +4,7 @@ import com.artmal.edu_tool_for_youtube.dao.PlaylistDao;
 import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.User;
 import com.artmal.edu_tool_for_youtube.service.SecurityService;
+import com.artmal.edu_tool_for_youtube.service.SubjectService;
 import com.artmal.edu_tool_for_youtube.service.UserService;
 import com.artmal.edu_tool_for_youtube.service.impl.SecurityServiceImpl;
 import com.artmal.edu_tool_for_youtube.validator.UserValidator;
@@ -13,12 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -38,6 +42,8 @@ public class UserController {
     private UserValidator userValidator;
     @Autowired
     private PlaylistDao playlistService;
+    @Autowired
+    private SubjectService subjectService;
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
@@ -73,6 +79,7 @@ public class UserController {
         return "login";
     }
 
+    @Transactional
     @RequestMapping(value = {"/", "/list-of-playlists"}, method = RequestMethod.GET)
     public String welcome(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -80,6 +87,12 @@ public class UserController {
 
         Set<Playlist> playlistList = playlistService.findAllByUsers(user);
 
+        List<String> videosSubjects = new ArrayList<>();
+        for(Playlist playlist : playlistList) {
+            videosSubjects.add(playlist.getSubject().getTitle());
+        }
+
+        model.addAttribute("videosSubjects", videosSubjects);
         model.addAttribute("listOfPlaylists", playlistList);
         return "pageWithListOfPlaylists";
     }

@@ -18,4 +18,14 @@ public class SubjectServiceImpl implements SubjectService {
     public Set<Subject> findAllByUser(User user) {
         return subjectDao.findAllByUser(user);
     }
+
+    @Override
+    public Subject findById(long id) {
+        return subjectDao.findById(id);
+    }
+
+    @Override
+    public Subject findByTitle(String title) {
+        return subjectDao.findByTitle(title);
+    }
 }

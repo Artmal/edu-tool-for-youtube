@@ -11,10 +11,14 @@
 <head>
     <title>List of Playlist</title>
 
-    <link href="${contextPath}/resources/css/welcomePage.css" rel="stylesheet" type="text/css">
+    <link href="${contextPath}/resources/css/stylesForPages/pageWithListOfPlaylists.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <%@include file="../../resources/header.jsp" %>
+    <ul>
+        <li><a href="/profile">My Profile</a></li>
+        <li><a href="/list-of-subjects">My Subjects</a></li>
+        <li><a class="active" href="/list-of-playlists">My Playlists</a></li>
+    </ul>
 
     <div>
         <c:if test="${not empty listOfPlaylists}">
@@ -22,15 +26,17 @@
             <tr>
                 <td>ID</td>
                 <td>Playlist Name</td>
+                <td>Subject</td>
                 <td>Channel</td>
                 <td>Link</td>
                 <td>Progress</td>
             </tr>
-            <c:forEach items="${listOfPlaylists}" var="element">
-                <c:set var="count" value="${count + 1}" scope="page"/>
+            <c:forEach items="${listOfPlaylists}" var="element" varStatus="status">
+                    <c:set var="count" value="${count + 1}" scope="page"/>
                     <tr>
                         <td>${count}</td>
                         <td><a href="${contextPath}/playlist?id=${element.id}">${element.name}</a></td>
+                        <td>${videosSubjects[status.index]}</td>
                         <td>${element.channel}</td>
                         <td><a href="${element.link}">${element.link}</a></td>
                         <td>${element.amountOfCompletedVideos}/${element.amountOfVideos}</td>
@@ -41,14 +47,6 @@
 
         <form:form action="${contextPath}/list-of-playlists" method="post">
             <p>Add playlist</p>
-
-            <c:if test="${not empty listOfSubjects}">
-                <select name="addPlaylist_subjectFromSelect">
-                    <c:forEach items="${listOfSubjects}" var="subject">
-                        <option>${subject.title}</option>
-                    </c:forEach>
-                </select>
-            </c:if>
 
             <input type="text" name="addPlaylist_subject" placeholder="Subject the playlist belongs to">
             <input type="text" name="addPlaylist_link" placeholder="Past playlist link here">

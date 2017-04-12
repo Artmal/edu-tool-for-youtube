@@ -19,6 +19,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Controller for {@link com.artmal.edu_tool_for_youtube.model.Video}'s pages.
+ *
+ * @author Artem Malchenko
+ * @version 1.0
+ */
+
+
 @Controller
 public class VideoController {
     @Autowired

@@ -7,4 +7,6 @@ import java.util.Set;
 
 public interface SubjectService {
     Set<Subject> findAllByUser(User user);
+    Subject findById(long id);
+    Subject findByTitle(String title);
 }

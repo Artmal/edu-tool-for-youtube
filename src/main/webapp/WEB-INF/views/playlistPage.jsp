@@ -10,10 +10,15 @@
 <head>
     <title>Playlist page</title>
 
-    <link href="${contextPath}/resources/css/playlistPage.css" rel="stylesheet" type="text/css">
+    <link href="${contextPath}/resources/css/stylesForPages/playlistPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <%@include file="../../resources/header.jsp" %>
+    <ul>
+        <li><a href="/profile">My Profile</a></li>
+        <li><a href="/list-of-subjects">My Subjects</a></li>
+        <li><a href="/list-of-playlists">My Playlists</a></li>
+    </ul>
+
     <br>
 
     <a class="deleteButton" href="/playlist/delete?id=${playlistId}" onclick="return confirm('Are you sure?');">Delete Playlist</a>

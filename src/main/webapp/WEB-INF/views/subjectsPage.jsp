@@ -10,10 +10,14 @@
 <head>
     <title>Subjects Page</title>
 
-    <link href="${contextPath}/resources/css/welcomePage.css" rel="stylesheet" type="text/css">
+    <link href="${contextPath}/resources/css/stylesForPages/subjectPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <%@include file="../../resources/header.jsp" %>
+    <ul>
+        <li><a href="/profile">My Profile</a></li>
+        <li><a class="active"  href="/list-of-subjects">My Subjects</a></li>
+        <li><a href="/list-of-playlists">My Playlists</a></li>
+    </ul>
 
     <c:if test="${not empty listOfSubjects}">
         <table>
@@ -25,7 +29,7 @@
                 <c:set var="count" value="${count + 1}" scope="page"/>
                 <tr>
                     <td>${count}</td>
-                    <td><a href="/playlist?id=${element.id}">${element.title}</a></td>
+                    <td><a href="/subject?subject_id=${element.id}">${element.title}</a></td>
                 </tr>
             </c:forEach>
         </table>

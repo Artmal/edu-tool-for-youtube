@@ -8,4 +8,6 @@ import java.util.Set;
 
 public interface SubjectDao extends JpaRepository<Subject, Long> {
     Set<Subject> findAllByUser(User user);
+    Subject findById(long id);
+    Subject findByTitle(String title);
 }

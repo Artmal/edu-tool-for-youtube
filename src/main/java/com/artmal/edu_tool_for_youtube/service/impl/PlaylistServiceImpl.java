@@ -3,6 +3,7 @@ package com.artmal.edu_tool_for_youtube.service.impl;
 import com.artmal.edu_tool_for_youtube.dao.PlaylistDao;
 import com.artmal.edu_tool_for_youtube.dao.UserDao;
 import com.artmal.edu_tool_for_youtube.model.Playlist;
+import com.artmal.edu_tool_for_youtube.model.Subject;
 import com.artmal.edu_tool_for_youtube.model.User;
 import com.artmal.edu_tool_for_youtube.model.Video;
 import com.artmal.edu_tool_for_youtube.service.PlaylistService;
@@ -83,5 +84,10 @@ public class PlaylistServiceImpl implements PlaylistService {
         currentUser.getPlaylists().remove(playlist);
         playlistDao.delete(id);
 
+    }
+
+    @Override
+    public Set<Playlist> findAllBySubject(Subject subject) {
+        return playlistDao.findAllBySubject(subject);
     }
 }

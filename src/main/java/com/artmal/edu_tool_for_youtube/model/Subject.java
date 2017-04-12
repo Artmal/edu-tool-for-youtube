@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "title")
     private String title;
@@ -31,10 +31,10 @@ public class Subject {
         this.user = user;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     public String getTitle() {
