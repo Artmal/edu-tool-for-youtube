@@ -1,6 +1,7 @@
 package com.artmal.edu_tool_for_youtube.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Simple JavaBean domain object that represents a Subject(like Programming, Philosophy).
@@ -22,6 +23,9 @@ public class Subject {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "subject")
+    private Set<Playlist> playlists;
 
     public Subject() {
     }
@@ -48,5 +52,11 @@ public class Subject {
     }
     public void setUser(User user) {
         this.user = user;
+    }
+    public Set<Playlist> getPlaylists() {
+        return playlists;
+    }
+    public void setPlaylists(Set<Playlist> playlists) {
+        this.playlists = playlists;
     }
 }

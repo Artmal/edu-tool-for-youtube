@@ -15,9 +15,9 @@
 </head>
 <body>
     <ul>
-        <li><a href="/profile">My Profile</a></li>
-        <li><a href="/list-of-subjects">My Subjects</a></li>
-        <li><a class="active" href="/list-of-playlists">My Playlists</a></li>
+        <li><a href="${contextPath}/profile">My Profile</a></li>
+        <li><a href="${contextPath}/list-of-subjects">My Subjects</a></li>
+        <li><a class="active" href="${contextPath}/list-of-playlists">My Playlists</a></li>
     </ul>
 
     <div>

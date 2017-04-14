@@ -6,7 +6,7 @@
 <body>
     <%@include file="../../resources/header.jsp" %>
 
-    ${username};
-    ${amountOfPlaylists};
+    Username: ${username};
+    Amount Of Playlists: ${amountOfPlaylists};
 </body>
 </html>

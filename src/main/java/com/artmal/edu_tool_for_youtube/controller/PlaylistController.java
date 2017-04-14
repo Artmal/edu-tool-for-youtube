@@ -2,11 +2,9 @@ package com.artmal.edu_tool_for_youtube.controller;
 
 import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.User;
-import com.artmal.edu_tool_for_youtube.model.Video;
 import com.artmal.edu_tool_for_youtube.service.PlaylistService;
 import com.artmal.edu_tool_for_youtube.service.UserService;
 import com.artmal.edu_tool_for_youtube.service.VideoService;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,42 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Set;
 
 @Controller
 public class PlaylistController {
     @Autowired
-    VideoService videoService;
+    private VideoService videoService;
     @Autowired
-    PlaylistService playlistService;
+    private PlaylistService playlistService;
     @Autowired
-    UserService userService;
+    private UserService userService;
 
-    @Transactional
     @RequestMapping(value = "/playlist/change", method = RequestMethod.GET)
-    public String changePlaylist(Model model, @RequestParam("id") long id) {
-        Video video = videoService.findById(id);
-        Hibernate.initialize(video);
-
-        Playlist playlistContainingTheVideo = playlistService.findByVideoId(video.getId());
-
-        boolean currentValueOfCompleteness = video.isCompleted();
-        if (currentValueOfCompleteness) {
-            video.setCompleted(!video.isCompleted());
-            playlistContainingTheVideo.setAmountOfCompletedVideos(playlistContainingTheVideo.getAmountOfCompletedVideos() - 1);
-
-            List<Video> listOfVideos = videoService.getAllByPlaylistId(playlistContainingTheVideo.getId());
-            model.addAttribute("listOfVideos", listOfVideos);
-        } else {
-            video.setCompleted(!video.isCompleted());
-            ;
-            playlistContainingTheVideo.setAmountOfCompletedVideos(playlistContainingTheVideo.getAmountOfCompletedVideos() + 1);
-
-            List<Video> listOfVideos = videoService.getAllByPlaylistId(playlistContainingTheVideo.getId());
-            model.addAttribute("listOfVideos", listOfVideos);
-        }
-
+    public String changePlaylist(Model model, @RequestParam("id") long videoId) {
+        videoService.changeValueOfCompleteness(model, videoId);
         return "playlistPage";
     }
 
@@ -62,9 +38,8 @@ public class PlaylistController {
         playlistService.deleteById(playlistId);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findByUsername(auth.getName());
-
-        Set<Playlist> playlistList = playlistService.findAllByUsers(user);
+        User loggedInUser = userService.findByUsername(auth.getName());
+        Set<Playlist> playlistList = playlistService.findAllByUsers(loggedInUser);
 
         model.addAttribute("listOfPlaylists", playlistList);
         return "pageWithListOfPlaylists";

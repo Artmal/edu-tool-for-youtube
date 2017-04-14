@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -38,25 +39,42 @@ public class PlaylistsController {
     SubjectService subjectService;
 
     @Transactional
+    @RequestMapping(value = {"/", "/list-of-playlists"}, method = RequestMethod.GET)
+    public String welcome(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User loggedInUser = userService.findByUsername(auth.getName());
+
+        Set<Playlist> playlistList = playlistService.findAllByUsers(loggedInUser);
+
+        List<String> videosSubjects = new ArrayList<>();
+        for(Playlist playlist : playlistList) {
+            videosSubjects.add(playlist.getSubject().getTitle());
+        }
+
+        model.addAttribute("videosSubjects", videosSubjects);
+        model.addAttribute("listOfPlaylists", playlistList);
+        return "pageWithListOfPlaylists";
+    }
+
+    @Transactional
     @RequestMapping(value = "/list-of-playlists", method = RequestMethod.POST)
     public String addPlaylist(Model model, @RequestParam("addPlaylist_link") String link,
                               @RequestParam("addPlaylist_subject") String subjectTitle) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = userService.findByUsername(auth.getName());
+        User loggedInUser = userService.findByUsername(auth.getName());
 
         Playlist newPlaylist = HtmlParser.initializePlaylist(link);
 
         if(subjectService.findByTitle(subjectTitle) != null) {
             newPlaylist.setSubject(subjectService.findByTitle((subjectTitle)));
-
         } else {
-            Subject subject = new Subject(subjectTitle, currentUser);
+            Subject subject = new Subject(subjectTitle, loggedInUser);
             newPlaylist.setSubject(subject);
         }
 
         playlistService.save(newPlaylist);
-        Hibernate.initialize(currentUser.getPlaylists());
-        currentUser.getPlaylists().add(newPlaylist);
+        Hibernate.initialize(loggedInUser.getPlaylists());
+        loggedInUser.getPlaylists().add(newPlaylist);
 
         Document doc = Jsoup.connect(link).get();
         List<String> videoTitles = HtmlParser.getVideoTitles(doc);
@@ -71,17 +89,20 @@ public class PlaylistsController {
             videoService.save(video);
         }
 
-        Set<Playlist> playlistList = playlistService.findAllByUsers(currentUser);
-        Set<Subject> subjects = subjectService.findAllByUser(currentUser);
+        Set<Playlist> playlistList = playlistService.findAllByUsers(loggedInUser);
+        List<String> videosSubjects = new ArrayList<>();
+        for(Playlist playlist : playlistList) {
+            videosSubjects.add(playlist.getSubject().getTitle());
+        }
 
-        model.addAttribute("listOfSubjects", subjects);
+        model.addAttribute("listOfSubjects", videosSubjects);
         model.addAttribute("listOfPlaylists", playlistList);
         return "pageWithListOfPlaylists";
     }
 
     @RequestMapping(value = "/playlist", method = RequestMethod.GET)
     public String showPlaylist(Model model, @RequestParam("id") long id) {
-        List<Video> listOfVideos = videoService.getAllByPlaylistId(id);
+        List<Video> listOfVideos = videoService.findAllByPlaylistId(id);
         model.addAttribute("listOfVideos", listOfVideos);
         model.addAttribute("playlistId", id);
         return "playlistPage";

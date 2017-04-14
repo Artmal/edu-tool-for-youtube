@@ -86,4 +86,10 @@ public class User {
     public void setPlaylists(Set<Playlist> playlists) {
         this.playlists = playlists;
     }
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
 }

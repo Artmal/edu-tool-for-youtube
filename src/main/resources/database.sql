@@ -64,8 +64,8 @@ CREATE TABLE videos(
   title VARCHAR(255) NOT NULL,
   video_code VARCHAR(255) NOT NULL,
   duration VARCHAR(255) NOT NULL,
-  isCompleted BOOLEAN NOT NULL,
-  notes TEXT,
+  is_completed BOOLEAN NOT NULL,
+  level_of_understanding INT DEFAULT 0,
   playlist_id int NOT NULL
 )
   ENGINE = InnoDB;
@@ -84,6 +84,7 @@ CREATE TABLE subjects(
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   user_id INT NOT NULL,
+  amount_of_playlists INT,
 
   FOREIGN KEY (user_id) REFERENCES users(id)
 )

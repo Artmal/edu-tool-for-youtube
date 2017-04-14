@@ -9,9 +9,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Util class that uses JSOUP library to parse html pages from youtube.com.
+ *
+ * @author Artem Malchenko
+ * @version 1.0
+ */
 public class HtmlParser {
     public static List<String> getVideoTitles(Document doc) {
         List<String> videoTitles = new ArrayList<>();
+
         Elements elements= doc.getElementsByTag("tr");
         for(int i = 0; i < elements.size(); i++){
             videoTitles.add(elements.get(i).attr("data-title"));
@@ -22,6 +29,7 @@ public class HtmlParser {
 
     public static List<String> getVideoDurations(Document doc) {
         List<String> durations = new ArrayList<>();
+
         Elements elementsWithDuration = doc.select("span[aria-label]");
         for(int i = 0; i < elementsWithDuration.size(); i++) {
             if(elementsWithDuration.get(i).text().contains(":")) {
@@ -34,6 +42,7 @@ public class HtmlParser {
 
     public static List<String> getVideoCodes(Document doc) {
         List<String> videoCodes = new ArrayList<>();
+
         Elements elementsWithVideoCodes = doc.select("button[data-video-ids]");
         for(int i = 0; i < elementsWithVideoCodes.size(); i++) {
             String videoCode = elementsWithVideoCodes.get(i).attr("data-video-ids");
@@ -41,7 +50,6 @@ public class HtmlParser {
                 videoCodes.add(videoCode);
             }
         }
-
 
         return videoCodes;
     }

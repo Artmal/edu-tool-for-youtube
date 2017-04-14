@@ -14,9 +14,9 @@
 </head>
 <body>
     <ul>
-        <li><a href="/profile">My Profile</a></li>
-        <li><a class="active"  href="/list-of-subjects">My Subjects</a></li>
-        <li><a href="/list-of-playlists">My Playlists</a></li>
+        <li><a href="${contextPath}/profile">My Profile</a></li>
+        <li><a class="active"  href="${contextPath}/list-of-subjects">My Subjects</a></li>
+        <li><a href="${contextPath}/list-of-playlists">My Playlists</a></li>
     </ul>
 
     <c:if test="${not empty listOfSubjects}">
@@ -29,7 +29,7 @@
                 <c:set var="count" value="${count + 1}" scope="page"/>
                 <tr>
                     <td>${count}</td>
-                    <td><a href="/subject?subject_id=${element.id}">${element.title}</a></td>
+                    <td><a href="${contextPath}/subject?subject_id=${element.id}">${element.title}</a></td>
                 </tr>
             </c:forEach>
         </table>

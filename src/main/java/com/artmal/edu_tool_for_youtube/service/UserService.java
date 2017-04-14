@@ -16,4 +16,6 @@ public interface UserService {
     User findByUsername(String username);
     void removeUserByUsername(String username);
     User findByPlaylistsContaining(Playlist playlist);
+
+    int findNumberOfPlaylists(String username);
 }

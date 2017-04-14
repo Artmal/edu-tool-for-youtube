@@ -2,13 +2,23 @@ package com.artmal.edu_tool_for_youtube.service;
 
 import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.Video;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
 public interface VideoService  {
-    void save(Video video);
-    List<Video> getAllByPlaylistId(long playlistId);
-    Video findById(long id);
+    List<Video> findAllByPlaylistId(long playlistId);
     List<Video> findAllByPlaylist(Playlist playlist);
+
+    Video findById(long id);
+
     void removeAllByPlaylist(Playlist playlist);
+    void save(Video video);
+
+    void changeLevelOfUnderstanding(long videoId, int levelOfUnderstanding);
+    String getVideoCode(Video video);
+
+    void changeValueOfCompleteness(Model model, long videoId);
+
+    void addNote(Model model, long videoId, String note);
 }

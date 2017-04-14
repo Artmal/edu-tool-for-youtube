@@ -36,9 +36,9 @@ public class SubjectController {
     @RequestMapping(value = "/list-of-subjects", method = RequestMethod.GET)
     public String showSubjectsPage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = userService.findByUsername(auth.getName());
+        User loggedInUser = userService.findByUsername(auth.getName());
 
-        Set<Subject> listOfSubjects = subjectService.findAllByUser(currentUser);
+        Set<Subject> listOfSubjects = subjectService.findAllByUser(loggedInUser);
         model.addAttribute("listOfSubjects", listOfSubjects);
         return "subjectsPage";
     }

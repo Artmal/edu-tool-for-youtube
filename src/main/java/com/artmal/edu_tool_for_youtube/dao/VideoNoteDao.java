@@ -9,4 +9,5 @@ import java.util.List;
 public interface VideoNoteDao extends JpaRepository<VideoNote, Long> {
     List<VideoNote> findAllByVideo(Video video);
     void removeAllByVideo(Video video);
+    void removeById(long id);
 }

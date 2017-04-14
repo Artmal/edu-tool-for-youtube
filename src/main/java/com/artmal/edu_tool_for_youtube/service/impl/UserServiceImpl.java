@@ -9,6 +9,8 @@ import com.artmal.edu_tool_for_youtube.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,6 +32,7 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
+    @Transactional
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Set<Role> roles = new HashSet<>();
@@ -39,6 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void addPlaylist(User user, Playlist playlist) {
         User currentUser = userDao.findByUsername(user.getUsername());
         Set<Playlist> playlistSet = currentUser.getPlaylists();
@@ -47,11 +51,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
     }
 
     @Override
+    @Transactional
     public void removeUserByUsername(String username) {
         userDao.removeUserByUsername(username);
     }
@@ -59,5 +65,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByPlaylistsContaining(Playlist playlist) {
         return userDao.findByPlaylistsContaining(playlist);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public int findNumberOfPlaylists(String username) {
+        User user = userDao.findByUsername(username);
+        return user.getPlaylists().size();
     }
 }

@@ -27,8 +27,11 @@ public class Video {
     @Column(name = "duration")
     private String duration;
 
-    @Column(name = "isCompleted")
+    @Column(name = "is_completed")
     private boolean isCompleted;
+
+    @Column(name = "level_of_understanding")
+    private int levelOfUnderstanding;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "playlist_id", nullable = false)
@@ -87,5 +90,11 @@ public class Video {
     }
     public void setNotes(Set<VideoNote> notes) {
         this.notes = notes;
+    }
+    public int getLevelOfUnderstanding() {
+        return levelOfUnderstanding;
+    }
+    public void setLevelOfUnderstanding(int levelOfUnderstanding) {
+        this.levelOfUnderstanding = levelOfUnderstanding;
     }
 }

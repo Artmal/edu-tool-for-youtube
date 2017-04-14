@@ -10,6 +10,10 @@ import java.util.Set;
 public interface PlaylistDao extends JpaRepository<Playlist, Long>{
     Playlist findByLink(String link);
     Playlist findById(long id);
+
     Set<Playlist> findAllByUsers(User user);
     Set<Playlist> findAllBySubject(Subject subject);
+
+//    @Query("SELECT Subject FROM Playlist p WHERE p.id = (:id)")
+//    Subject findSubjectOfThePlaylist(@Param("id") long id);
 }
