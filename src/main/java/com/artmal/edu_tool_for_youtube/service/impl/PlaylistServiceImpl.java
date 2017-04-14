@@ -52,10 +52,10 @@ public class PlaylistServiceImpl implements PlaylistService {
         return playlistDao.findAllByUsers(user);
     }
 
-//    @Override
-//    public Subject findSubjectOfThePlaylist(long id) {
-//        return playlistDao.findSubjectOfThePlaylist(id);
-//    }
+    @Override
+    public Subject findSubjectOfThePlaylist(long id) {
+        return playlistDao.findSubjectOfThePlaylist(id);
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -87,8 +87,8 @@ public class PlaylistServiceImpl implements PlaylistService {
 
         videoService.removeAllByPlaylist(playlist);
 
-//        Subject subject = findSubjectOfThePlaylist(playlistId);
-//        subject.getPlaylists().remove(playlist);
+        Subject subject = findSubjectOfThePlaylist(playlistId);
+        subject.getPlaylists().remove(playlist);
 
         currentUser.getPlaylists().remove(playlist);
         playlistDao.delete(playlistId);
