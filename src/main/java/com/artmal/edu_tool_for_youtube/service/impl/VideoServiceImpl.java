@@ -34,9 +34,16 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     @Transactional
-    public void changeLevelOfUnderstanding(long videoId, int levelOfUnderstanding) {
+    public void changeLevelOfUnderstanding(Model model, long videoId, int levelOfUnderstanding) {
         Video video = videoDao.findById(videoId);
         video.setLevelOfUnderstanding(levelOfUnderstanding);
+        video.setCompleted(true);
+
+        Playlist playlistContainingTheVideo = playlistService.findByVideoId(videoId);
+        playlistContainingTheVideo.setAmountOfCompletedVideos(playlistContainingTheVideo.getAmountOfCompletedVideos() + 1);
+
+        List<Video> listOfVideos = videoDao.findAllByPlaylistId(playlistContainingTheVideo.getId());
+        model.addAttribute("listOfVideos", listOfVideos);
     }
 
     @Override

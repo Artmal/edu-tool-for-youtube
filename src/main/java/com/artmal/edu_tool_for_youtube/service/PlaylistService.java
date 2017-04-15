@@ -4,6 +4,7 @@ import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.Subject;
 import com.artmal.edu_tool_for_youtube.model.User;
 import org.springframework.data.repository.query.Param;
+import org.springframework.ui.Model;
 
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public interface PlaylistService {
      */
     long save(Playlist playlist);
 
-    void deleteById(long id);
+    void deleteById(Model model, long id);
 
     Playlist findById(long id);
     Playlist findByVideoId(long id);

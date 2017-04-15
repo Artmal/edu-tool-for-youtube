@@ -84,7 +84,7 @@ public class VideoController {
     @RequestMapping(value = "/video/changeUnderstandingLevel", method = RequestMethod.POST)
     public String changeUnderstandingLevel(Model model, @RequestParam("video_id") long videoId,
             @RequestParam("level_of_understanding") int levelOfUnderstanding) {
-        videoService.changeLevelOfUnderstanding(videoId, levelOfUnderstanding);
+        videoService.changeLevelOfUnderstanding(model, videoId, levelOfUnderstanding);
 
         Video video = videoService.findById(videoId);
         String videoCode = video.getVideoCode();

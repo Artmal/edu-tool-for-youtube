@@ -14,8 +14,6 @@ public interface UserService {
     void save(User user);
     void addPlaylist(User user, Playlist playlist);
     User findByUsername(String username);
-    void removeUserByUsername(String username);
-    User findByPlaylistsContaining(Playlist playlist);
 
     int findNumberOfPlaylists(String username);
 }

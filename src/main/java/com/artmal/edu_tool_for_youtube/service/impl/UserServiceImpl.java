@@ -57,17 +57,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public void removeUserByUsername(String username) {
-        userDao.removeUserByUsername(username);
-    }
-
-    @Override
-    public User findByPlaylistsContaining(Playlist playlist) {
-        return userDao.findByPlaylistsContaining(playlist);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public int findNumberOfPlaylists(String username) {
         User user = userDao.findByUsername(username);

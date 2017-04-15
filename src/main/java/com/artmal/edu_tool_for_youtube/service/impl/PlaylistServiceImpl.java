@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Set;
@@ -53,6 +54,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Subject findSubjectOfThePlaylist(long id) {
         return playlistDao.findSubjectOfThePlaylist(id);
     }
@@ -73,7 +75,7 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     @Transactional
-    public void deleteById(long playlistId) {
+    public void deleteById(Model model, long playlistId) {
         Playlist playlist = playlistDao.findById(playlistId);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -87,11 +89,12 @@ public class PlaylistServiceImpl implements PlaylistService {
 
         videoService.removeAllByPlaylist(playlist);
 
-        Subject subject = findSubjectOfThePlaylist(playlistId);
-        subject.getPlaylists().remove(playlist);
-
         currentUser.getPlaylists().remove(playlist);
         playlistDao.delete(playlistId);
+
+        Set<Playlist> playlistList = playlistDao.findAllByUsers(currentUser);
+
+        model.addAttribute("listOfPlaylists", playlistList);
     }
 
     @Override

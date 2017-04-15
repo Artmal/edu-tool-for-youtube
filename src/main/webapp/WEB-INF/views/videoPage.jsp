@@ -65,56 +65,67 @@
 
 </head>
 <body>
-    <ul>
-        <li><a href="${contextPath}/profile">My Profile</a></li>
-        <li><a href="${contextPath}/list-of-subjects">My Subjects</a></li>
-        <li><a href="${contextPath}/list-of-playlists">My Playlists</a></li>
-    </ul>
-    <br>
+    <div id = "pageWrapper">
+        <ul>
+            <li><a href="${contextPath}/profile">My Profile</a></li>
+            <li><a href="${contextPath}/list-of-subjects">My Subjects</a></li>
+            <li><a href="${contextPath}/list-of-playlists">My Playlists</a></li>
+        </ul>
+        <br>
 
-    <div class="wrapper" style="height: 50px">
-        <p>Understanding level</p>
-        <div class="acidjs-rating-stars" style>
-            <form:form action="/video/changeUnderstandingLevel?video_id=${video_id}">
-                <input type="radio" name="level_of_understanding" value="1"/>
-                <input type="radio" name="level_of_understanding" value="2"/>
-                <input type="radio" name="level_of_understanding" value="3"/>
-                <input type="radio" name="level_of_understanding" value="4"/>
-                <input type="radio" name="level_of_understanding" value="5"/>
-                <button type="submit">Submit</button>
-            </form:form>
-        </div>
-    </div>
-
-    <br>
-
-    <div class="wrapper">
-        <div class="left_block">
-            <iframe style = "border: 1px solid black" width="750" height="350" src="https://www.youtube.com/embed/${videoCode}" frameborder="0" allowfullscreen></iframe>
-            <br><br>
-            <a href="${contextPath}/setVideoAsCompleted?id=${video_id}" class="completeButton">Completed</a>
-        </div>
-
-        <div class="right_block">
-            <form:form action="${contextPath}/addNote?video_id=${video_id}" method="post">
-                <textarea name="note"></textarea>
-                <button type="submit" class="submitButton">Submit Note</button>
-            </form:form>
-        </div>
-    </div>
-
-    <br>
-
-    <div class="wrapper">
-    <c:if test="${not empty video_notes}">
-        <c:forEach items="${video_notes}" var="element">
-            <p1>${element.date} (<a href="${contextPath}/deleteNote?note_id=${element.id}&video_id=${video_id}">Delete</a>)</p1>
-            <div class = "noteDiv">
-                ${element.note}
+        <div id="understandingLevelSection">
+            <div class="sectionHeader">
+                <p class = "ppsd">Understanding level</p>
             </div>
+
+                <form:form action="/video/changeUnderstandingLevel?video_id=${video_id}">
+                    <input type="radio" name="level_of_understanding" value="1"/>
+                    <input type="radio" name="level_of_understanding" value="2"/>
+                    <input type="radio" name="level_of_understanding" value="3"/>
+                    <input type="radio" name="level_of_understanding" value="4"/>
+                    <input type="radio" name="level_of_understanding" value="5"/>
+                    <button type="submit">Submit</button>
+                </form:form>
             <br>
-        </c:forEach>
-    </c:if>
+        </div>
+
+        <br>
+
+        <div id = "wrapperForVideoAndNoteForm">
+            <div class = "sectionHeader">
+                <p class = "ppsd">Video and Note Section</p>
+            </div>
+
+            <div id="videoSection">
+                <iframe style = "margin-left: 5px" style = "border: 1px solid black" width="750" height="350" src="https://www.youtube.com/embed/${videoCode}" frameborder="0" allowfullscreen></iframe>
+                <br>
+                <button type="button" href="${contextPath}/setVideoAsCompleted?id=${video_id}">Completed</button>
+            </div>
+
+            <div id="addNoteSection">
+                <form:form action="${contextPath}/addNote?video_id=${video_id}" method="post">
+                    <textarea name="note"></textarea>
+                    <button type="submit">Submit Note</button>
+                </form:form>
+            </div>
+        </div>
+
+        <br>
+
+        <div id = "notesSection">
+            <div class = "sectionHeader">
+                <p class = "ppsd">Notes</p>
+            </div>
+            <c:if test="${not empty video_notes}">
+                <c:forEach items="${video_notes}" var="element">
+                    <p1>${element.date} (<a href="${contextPath}/deleteNote?note_id=${element.id}&video_id=${video_id}">Delete</a>)</p1>
+                    <div class = "noteDiv">
+                            ${element.note}
+                    </div>
+                    <br>
+                </c:forEach>
+            </c:if>
+        </div>
     </div>
 </body>
 </html>

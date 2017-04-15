@@ -15,7 +15,7 @@ public interface VideoService  {
     void removeAllByPlaylist(Playlist playlist);
     void save(Video video);
 
-    void changeLevelOfUnderstanding(long videoId, int levelOfUnderstanding);
+    void changeLevelOfUnderstanding(Model model, long videoId, int levelOfUnderstanding);
     String getVideoCode(Video video);
 
     void changeValueOfCompleteness(Model model, long videoId);
