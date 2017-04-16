@@ -62,30 +62,99 @@
             }
         });
     </script>
+    <script>
+
+        /* Light YouTube Embeds by @labnol */
+        /* Web: http://labnol.org/?p=27941 */
+
+        document.addEventListener("DOMContentLoaded",
+            function() {
+                var div, n,
+                    v = document.getElementsByClassName("youtube-player");
+                for (n = 0; n < v.length; n++) {
+                    div = document.createElement("div");
+                    div.setAttribute("data-id", v[n].dataset.id);
+                    div.innerHTML = labnolThumb(v[n].dataset.id);
+                    div.onclick = labnolIframe;
+                    v[n].appendChild(div);
+                }
+            });
+
+        function labnolThumb(id) {
+            var thumb = '<img src="https://i.ytimg.com/vi/ID/hqdefault.jpg">',
+                play = '<div class="play"></div>';
+            return thumb.replace("ID", id) + play;
+        }
+
+        function labnolIframe() {
+            var iframe = document.createElement("iframe");
+            var embed = "https://www.youtube.com/embed/ID?autoplay=1";
+            iframe.setAttribute("src", embed.replace("ID", this.dataset.id));
+            iframe.setAttribute("frameborder", "0");
+            iframe.setAttribute("allowfullscreen", "1");
+            this.parentNode.replaceChild(iframe, this);
+        }
+
+    </script>
 
 </head>
 <body>
     <div id = "pageWrapper">
-        <ul>
-            <li><a href="${contextPath}/profile">My Profile</a></li>
-            <li><a href="${contextPath}/list-of-subjects">My Subjects</a></li>
-            <li><a href="${contextPath}/list-of-playlists">My Playlists</a></li>
-        </ul>
-        <br>
+        <%@ include file="/resources/header.jsp" %>
 
         <div id="understandingLevelSection">
             <div class="sectionHeader">
                 <p class = "ppsd">Understanding level</p>
             </div>
 
-                <form:form action="/video/changeUnderstandingLevel?video_id=${video_id}">
-                    <input type="radio" name="level_of_understanding" value="1"/>
-                    <input type="radio" name="level_of_understanding" value="2"/>
-                    <input type="radio" name="level_of_understanding" value="3"/>
-                    <input type="radio" name="level_of_understanding" value="4"/>
-                    <input type="radio" name="level_of_understanding" value="5"/>
-                    <button type="submit">Submit</button>
-                </form:form>
+            <form:form action="/video/changeUnderstandingLevel?video_id=${video_id}">
+                    <span class="starRating">
+
+                        <input id="rating5" type="radio" name="level_of_understanding" value="5"
+                               <c:if test = "${level_of_understanding == 5}">checked="checked"</c:if>
+                        />
+                        <label for="rating5">1</label>
+
+                        <input id="rating4" type="radio" name="level_of_understanding" value="4"
+                               <c:if test = "${level_of_understanding == 4}">checked="checked"</c:if>/>
+                        <label for="rating4">2</label>
+
+                        <input id="rating3" type="radio" name="level_of_understanding" value="3"
+                               <c:if test = "${level_of_understanding == 3}">checked="checked"</c:if>/>
+                        <label for="rating3">3</label>
+
+                        <input id="rating2" type="radio" name="level_of_understanding" value="2"
+                               <c:if test = "${level_of_understanding == 2}">checked="checked"</c:if> />
+                        <label for="rating2">4</label>
+
+                        <input id="rating1" type="radio" name="level_of_understanding" value="1"
+                             <c:if test = "${level_of_understanding == 1}">checked="checked"</c:if>/>
+                        <label for="rating1">5</label>
+                    </span>
+                <button type="submit">Submit</button>
+            </form:form>
+
+                <%--<form:form action="/video/changeUnderstandingLevel?video_id=${video_id}">--%>
+                    <%--<input type="radio" name="level_of_understanding" value="1"--%>
+                           <%--<c:if test = "${level_of_understanding == 1}">checked="checked"</c:if>--%>
+                    <%-->--%>
+
+                    <%--<input type="radio" name="level_of_understanding" value="2"--%>
+                           <%--<c:if test = "${level_of_understanding == 2}">checked="checked"</c:if>--%>
+                    <%-->--%>
+
+                    <%--<input type="radio" name="level_of_understanding" value="3"--%>
+                           <%--<c:if test = "${level_of_understanding == 3}">checked="checked"</c:if>--%>
+                    <%-->--%>
+                    <%--<input type="radio" name="level_of_understanding" value="4"--%>
+                           <%--<c:if test = "${level_of_understanding == 4}">checked="checked"</c:if>--%>
+                    <%-->--%>
+                    <%--<input type="radio" name="level_of_understanding" value="5"--%>
+                           <%--<c:if test = "${level_of_understanding == 5}">checked="checked"</c:if>--%>
+                    <%-->--%>
+
+                    <%--<button type="submit">Submit</button>--%>
+                <%--</form:form>--%>
             <br>
         </div>
 
@@ -96,8 +165,8 @@
                 <p class = "ppsd">Video and Note Section</p>
             </div>
 
-            <div id="videoSection">
-                <iframe style = "margin-left: 5px" style = "border: 1px solid black" width="750" height="350" src="https://www.youtube.com/embed/${videoCode}" frameborder="0" allowfullscreen></iframe>
+            <div id="videoSection" style="padding-left: 5px">
+                <iframe style = "border: 1px solid black" width="750" height="350" src="https://www.youtube.com/embed/${videoCode}" frameborder="0" allowfullscreen></iframe>
                 <br>
                 <button type="button" href="${contextPath}/setVideoAsCompleted?id=${video_id}">Completed</button>
             </div>

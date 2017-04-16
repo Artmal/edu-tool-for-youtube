@@ -1,31 +1,7 @@
-<style>
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #333;
-    }
-    li {
-        float: left;
-    }
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-    li a:hover:not(.active) {
-        background-color: #111;
-    }
-    .active {
-        background-color: #4CAF50;
-    }
-</style>
+<link href="${contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
 
 <ul>
-    <li><a class="active" href="/profile">My Profile</a></li>
+    <li><a href="/profile">My Profile</a></li>
     <li><a href="/list-of-subjects">My Subjects</a></li>
     <li><a href="/list-of-playlists">My Playlists</a></li>
 </ul>

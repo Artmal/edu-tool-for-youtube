@@ -78,6 +78,7 @@ CREATE TABLE video_notes(
 
   FOREIGN KEY(video_id) REFERENCES videos(id)
 )
+  CHARACTER SET utf8 COLLATE utf8_unicode_ci
   ENGINE = InnoDB;
 
 CREATE TABLE subjects(

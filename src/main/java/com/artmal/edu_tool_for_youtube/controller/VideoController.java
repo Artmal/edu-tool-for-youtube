@@ -40,11 +40,13 @@ public class VideoController {
         model.addAttribute("videoCode", videoCode);
         model.addAttribute("video_id", videoId);
         model.addAttribute("video_notes", videoNotes);
+        model.addAttribute("level_of_understanding", video.getLevelOfUnderstanding());
         return "videoPage";
     }
 
     @RequestMapping(value = "/addNote", method = RequestMethod.POST)
     public String addNotes(Model model, @RequestParam("note") String note, @RequestParam("video_id") long videoId) {
+
         videoService.addNote(model, videoId, note);
 
         Video videoOnThePage = videoService.findById(videoId);
@@ -54,6 +56,7 @@ public class VideoController {
         model.addAttribute("videoCode", videoCode);
         model.addAttribute("video_id", videoId);
         model.addAttribute("video_notes", videoNotes);
+        model.addAttribute("level_of_understanding", videoOnThePage.getLevelOfUnderstanding());
         return "videoPage";
     }
 
@@ -78,6 +81,7 @@ public class VideoController {
         model.addAttribute("videoCode", videoCode);
         model.addAttribute("video_id", videoId);
         model.addAttribute("video_notes", videoNotes);
+        model.addAttribute("level_of_understanding", video.getLevelOfUnderstanding());
         return "videoPage";
     }
 
@@ -87,17 +91,14 @@ public class VideoController {
         videoService.changeLevelOfUnderstanding(model, videoId, levelOfUnderstanding);
 
         Video video = videoService.findById(videoId);
-        String videoCode = video.getVideoCode();
-        List<VideoNote> videoNotes = videoNoteService.findAllByVideo(video);
 
         Playlist playlistContainingTheVideo = playlistService.findByVideoId(video.getId());
         video.setCompleted(true);
         playlistContainingTheVideo.setAmountOfCompletedVideos(playlistContainingTheVideo.getAmountOfCompletedVideos() + 1);
 
-        model.addAttribute("videoCode", videoCode);
-        model.addAttribute("video_id", videoId);
-        model.addAttribute("video_notes", videoNotes);
-        model.addAttribute("level_of_understanding", levelOfUnderstanding);
-        return "videoPage";
+        List<Video> listOfVideos = videoService.findAllByPlaylistId(playlistContainingTheVideo.getId());
+        model.addAttribute("listOfVideos", listOfVideos);
+        model.addAttribute("playlistId", playlistContainingTheVideo.getId());
+        return "playlistPage";
     }
 }

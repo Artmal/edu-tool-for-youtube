@@ -19,10 +19,6 @@
         <li><a href="${contextPath}/list-of-playlists">My Playlists</a></li>
     </ul>
 
-    <br>
-
-    <a class="deleteButton" href="${contextPath}/playlist/delete?id=${playlistId}" onclick="return confirm('Are you sure?');">Delete Playlist</a>
-
     <div>
         <c:if test="${not empty listOfVideos}">
             <table>
@@ -49,6 +45,7 @@
                 </c:forEach>
             </table>
         </c:if>
+        <a class="deleteButton" href="${contextPath}/playlist/delete?id=${playlistId}" onclick="return confirm('Are you sure?');">Delete Playlist</a>
     </div>
 </body>
 </html>

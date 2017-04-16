@@ -45,13 +45,20 @@
             </table>
         </c:if>
 
-        <form:form action="${contextPath}/list-of-playlists" method="post">
-            <p>Add playlist</p>
+        <br>
 
-            <input type="text" name="addPlaylist_subject" placeholder="Subject the playlist belongs to">
-            <input type="text" name="addPlaylist_link" placeholder="Past playlist link here">
-            <button type="submit">Add</button>
-        </form:form>
+        <div id="addPlaylistSection">
+            <div class = "sectionHeader">
+                <p class = "ppsd">Add playlist</p>
+            </div>
+
+            <form:form action="${contextPath}/list-of-playlists" method="post">
+                <input type="text" name="addPlaylist_subject" placeholder="Subject the playlist belongs to">
+                <input type="text" name="addPlaylist_link" placeholder="Past playlist link here">
+                <button type="submit">Add</button>
+            </form:form>
+        </div>
+
     </div>
 </body>
 </html>
