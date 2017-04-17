@@ -89,6 +89,11 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    public void removeAllByPlaylistId(long playlistId) {
+
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Video> findAllByPlaylistId(long playlistId) {
         return videoDao.findAllByPlaylistId(playlistId);

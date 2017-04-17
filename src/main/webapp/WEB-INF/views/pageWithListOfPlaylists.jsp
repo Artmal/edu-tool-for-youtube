@@ -14,11 +14,7 @@
     <link href="${contextPath}/resources/css/stylesForPages/pageWithListOfPlaylists.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <ul>
-        <li><a href="${contextPath}/profile">My Profile</a></li>
-        <li><a href="${contextPath}/list-of-subjects">My Subjects</a></li>
-        <li><a class="active" href="${contextPath}/list-of-playlists">My Playlists</a></li>
-    </ul>
+    <%@include file="../../resources/header.jsp" %>
 
     <div>
         <c:if test="${not empty listOfPlaylists}">
@@ -36,7 +32,7 @@
                     <tr>
                         <td>${count}</td>
                         <td><a href="${contextPath}/playlist?id=${element.id}">${element.name}</a></td>
-                        <td>${videosSubjects[status.index]}</td>
+                        <td>${listOfSubjects[status.index]}</td>
                         <td>${element.channel}</td>
                         <td><a href="${element.link}">${element.link}</a></td>
                         <td>${element.amountOfCompletedVideos}/${element.amountOfVideos}</td>
@@ -60,5 +56,9 @@
         </div>
 
     </div>
+
+    <script>
+        document.getElementById("myPlaylistsButton").classList.add("active");
+    </script>
 </body>
 </html>

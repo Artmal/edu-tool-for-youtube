@@ -46,6 +46,7 @@ public class VideoController {
 
     @RequestMapping(value = "/addNote", method = RequestMethod.POST)
     public String addNotes(Model model, @RequestParam("note") String note, @RequestParam("video_id") long videoId) {
+        System.out.println(note);
 
         videoService.addNote(model, videoId, note);
 

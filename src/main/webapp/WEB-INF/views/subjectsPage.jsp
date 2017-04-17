@@ -13,11 +13,7 @@
     <link href="${contextPath}/resources/css/stylesForPages/subjectPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <ul>
-        <li><a href="${contextPath}/profile">My Profile</a></li>
-        <li><a class="active"  href="${contextPath}/list-of-subjects">My Subjects</a></li>
-        <li><a href="${contextPath}/list-of-playlists">My Playlists</a></li>
-    </ul>
+    <%@include file="../../resources/header.jsp" %>
 
     <c:if test="${not empty listOfSubjects}">
         <table>
@@ -34,5 +30,9 @@
             </c:forEach>
         </table>
     </c:if>
+
+    <script>
+        document.getElementById("mySubjectsButton").classList.add("active");
+    </script>
 </body>
 </html>

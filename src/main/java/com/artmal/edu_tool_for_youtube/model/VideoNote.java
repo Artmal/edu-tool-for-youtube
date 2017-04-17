@@ -53,4 +53,5 @@ public class VideoNote {
     public void setVideo(Video video) {
         this.video = video;
     }
+
 }

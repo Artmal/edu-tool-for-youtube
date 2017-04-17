@@ -10,4 +10,6 @@ public interface SubjectService {
     Subject findByTitle(String title);
 
     Set<Subject> findAllByUser(User user);
+
+    void removeByPlaylistId(long playlistId);
 }

@@ -5,10 +5,7 @@ import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.Subject;
 import com.artmal.edu_tool_for_youtube.model.User;
 import com.artmal.edu_tool_for_youtube.model.Video;
-import com.artmal.edu_tool_for_youtube.service.PlaylistService;
-import com.artmal.edu_tool_for_youtube.service.UserService;
-import com.artmal.edu_tool_for_youtube.service.VideoNoteService;
-import com.artmal.edu_tool_for_youtube.service.VideoService;
+import com.artmal.edu_tool_for_youtube.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +26,8 @@ public class PlaylistServiceImpl implements PlaylistService {
     private VideoNoteService videoNoteService;
     @Autowired
     private VideoService videoService;
+    @Autowired
+    private SubjectService subjectService;
 
     @Override
     @Transactional
@@ -54,9 +53,8 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Subject findSubjectOfThePlaylist(long id) {
-        return playlistDao.findSubjectOfThePlaylist(id);
+    public void removeById(long id) {
+        playlistDao.removeById(id);
     }
 
     @Override
@@ -90,10 +88,9 @@ public class PlaylistServiceImpl implements PlaylistService {
         videoService.removeAllByPlaylist(playlist);
 
         currentUser.getPlaylists().remove(playlist);
-        playlistDao.delete(playlistId);
+        playlistDao.removeById(playlistId);
 
         Set<Playlist> playlistList = playlistDao.findAllByUsers(currentUser);
-
         model.addAttribute("listOfPlaylists", playlistList);
     }
 

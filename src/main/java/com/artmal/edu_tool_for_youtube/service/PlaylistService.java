@@ -3,7 +3,6 @@ package com.artmal.edu_tool_for_youtube.service;
 import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.Subject;
 import com.artmal.edu_tool_for_youtube.model.User;
-import org.springframework.data.repository.query.Param;
 import org.springframework.ui.Model;
 
 import java.util.Set;
@@ -22,5 +21,5 @@ public interface PlaylistService {
     Set<Playlist> findAllBySubject(Subject subject);
     Set<Playlist> findAllByUsers(User user);
 
-    Subject findSubjectOfThePlaylist(@Param("id") long id);
+    void removeById(long id);
 }

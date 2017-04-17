@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -37,13 +36,11 @@ public class PlaylistsController {
     @Autowired
     private VideoService videoService;
     @Autowired
-    SubjectService subjectService;
+    private SubjectService subjectService;
 
     @Transactional
     @RequestMapping(value = {"/", "/list-of-playlists"}, method = RequestMethod.GET)
     public String welcome(Model model) {
-        System.out.println(Charset.defaultCharset());
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User loggedInUser = userService.findByUsername(auth.getName());
 
@@ -54,7 +51,7 @@ public class PlaylistsController {
             videosSubjects.add(playlist.getSubject().getTitle());
         }
 
-        model.addAttribute("videosSubjects", videosSubjects);
+        model.addAttribute("listOfSubjects", videosSubjects);
         model.addAttribute("listOfPlaylists", playlistList);
         return "pageWithListOfPlaylists";
     }

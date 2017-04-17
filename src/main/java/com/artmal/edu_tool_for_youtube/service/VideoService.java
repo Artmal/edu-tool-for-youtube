@@ -21,4 +21,6 @@ public interface VideoService  {
     void changeValueOfCompleteness(Model model, long videoId);
 
     void addNote(Model model, long videoId, String note);
+
+    void removeAllByPlaylistId(long playlistId);
 }

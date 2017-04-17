@@ -62,40 +62,6 @@
             }
         });
     </script>
-    <script>
-
-        /* Light YouTube Embeds by @labnol */
-        /* Web: http://labnol.org/?p=27941 */
-
-        document.addEventListener("DOMContentLoaded",
-            function() {
-                var div, n,
-                    v = document.getElementsByClassName("youtube-player");
-                for (n = 0; n < v.length; n++) {
-                    div = document.createElement("div");
-                    div.setAttribute("data-id", v[n].dataset.id);
-                    div.innerHTML = labnolThumb(v[n].dataset.id);
-                    div.onclick = labnolIframe;
-                    v[n].appendChild(div);
-                }
-            });
-
-        function labnolThumb(id) {
-            var thumb = '<img src="https://i.ytimg.com/vi/ID/hqdefault.jpg">',
-                play = '<div class="play"></div>';
-            return thumb.replace("ID", id) + play;
-        }
-
-        function labnolIframe() {
-            var iframe = document.createElement("iframe");
-            var embed = "https://www.youtube.com/embed/ID?autoplay=1";
-            iframe.setAttribute("src", embed.replace("ID", this.dataset.id));
-            iframe.setAttribute("frameborder", "0");
-            iframe.setAttribute("allowfullscreen", "1");
-            this.parentNode.replaceChild(iframe, this);
-        }
-
-    </script>
 
 </head>
 <body>
@@ -133,28 +99,6 @@
                     </span>
                 <button type="submit">Submit</button>
             </form:form>
-
-                <%--<form:form action="/video/changeUnderstandingLevel?video_id=${video_id}">--%>
-                    <%--<input type="radio" name="level_of_understanding" value="1"--%>
-                           <%--<c:if test = "${level_of_understanding == 1}">checked="checked"</c:if>--%>
-                    <%-->--%>
-
-                    <%--<input type="radio" name="level_of_understanding" value="2"--%>
-                           <%--<c:if test = "${level_of_understanding == 2}">checked="checked"</c:if>--%>
-                    <%-->--%>
-
-                    <%--<input type="radio" name="level_of_understanding" value="3"--%>
-                           <%--<c:if test = "${level_of_understanding == 3}">checked="checked"</c:if>--%>
-                    <%-->--%>
-                    <%--<input type="radio" name="level_of_understanding" value="4"--%>
-                           <%--<c:if test = "${level_of_understanding == 4}">checked="checked"</c:if>--%>
-                    <%-->--%>
-                    <%--<input type="radio" name="level_of_understanding" value="5"--%>
-                           <%--<c:if test = "${level_of_understanding == 5}">checked="checked"</c:if>--%>
-                    <%-->--%>
-
-                    <%--<button type="submit">Submit</button>--%>
-                <%--</form:form>--%>
             <br>
         </div>
 
@@ -172,10 +116,10 @@
             </div>
 
             <div id="addNoteSection">
-                <form:form action="${contextPath}/addNote?video_id=${video_id}" method="post">
-                    <textarea name="note"></textarea>
-                    <button type="submit">Submit Note</button>
-                </form:form>
+                    <form:form action="${contextPath}/addNote?video_id=${video_id}" method="post">
+                        <textarea name="note"></textarea>
+                        <button type="submit">Submit Note</button>
+                    </form:form>
             </div>
         </div>
 

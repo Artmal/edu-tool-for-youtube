@@ -1,5 +1,7 @@
 package com.artmal.edu_tool_for_youtube.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -24,7 +26,8 @@ public class Subject {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "subject")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    @OneToMany(mappedBy = "subject", orphanRemoval = true)
     private Set<Playlist> playlists;
 
     public Subject() {

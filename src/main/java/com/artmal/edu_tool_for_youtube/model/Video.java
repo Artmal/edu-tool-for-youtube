@@ -97,4 +97,5 @@ public class Video {
     public void setLevelOfUnderstanding(int levelOfUnderstanding) {
         this.levelOfUnderstanding = levelOfUnderstanding;
     }
+
 }
