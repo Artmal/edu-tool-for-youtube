@@ -17,7 +17,6 @@ public class ProfileController {
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String showProfilePage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
         String username = auth.getName();
         model.addAttribute("username", username);
 

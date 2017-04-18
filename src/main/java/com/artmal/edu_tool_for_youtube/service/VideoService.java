@@ -2,6 +2,7 @@ package com.artmal.edu_tool_for_youtube.service;
 
 import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.Video;
+import org.jsoup.nodes.Document;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface VideoService  {
     void addNote(Model model, long videoId, String note);
 
     void removeAllByPlaylistId(long playlistId);
+
+    void saveVideosForThePlaylist(Document doc, Playlist playlist);
 }

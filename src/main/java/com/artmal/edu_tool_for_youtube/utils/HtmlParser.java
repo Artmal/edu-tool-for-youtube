@@ -3,6 +3,7 @@ package com.artmal.edu_tool_for_youtube.utils;
 import com.artmal.edu_tool_for_youtube.model.Playlist;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -56,6 +57,11 @@ public class HtmlParser {
 
     public static Playlist initializePlaylist(String link) throws IOException {
         Document doc = Jsoup.connect(link).get();
+        Element body = doc.body();
+        body.append("<script type=\"text/javascript\">" +
+                "document.getElementsByClassName(\"yt-uix-button yt-uix-button-size-default yt-uix-button-default load-more-button yt-uix-load-more browse-items-load-more-button\")[0].click();" +
+                "</script>");
+
         String playlistTitleWithYoutubeBenchmark = doc.getElementsByTag("title").first().text();
         String playlistTitle = playlistTitleWithYoutubeBenchmark.substring(0, playlistTitleWithYoutubeBenchmark.lastIndexOf("-"));
         String channelTitle = doc.select("a[data-ytid]").first().text();
@@ -63,5 +69,4 @@ public class HtmlParser {
 
         return new Playlist(playlistTitle, channelTitle, link, amountOfVideos);
     }
-
 }

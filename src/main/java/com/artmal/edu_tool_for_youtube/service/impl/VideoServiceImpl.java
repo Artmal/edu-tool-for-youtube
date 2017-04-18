@@ -7,6 +7,8 @@ import com.artmal.edu_tool_for_youtube.model.VideoNote;
 import com.artmal.edu_tool_for_youtube.service.PlaylistService;
 import com.artmal.edu_tool_for_youtube.service.VideoNoteService;
 import com.artmal.edu_tool_for_youtube.service.VideoService;
+import com.artmal.edu_tool_for_youtube.utils.HtmlParser;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -91,6 +93,20 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void removeAllByPlaylistId(long playlistId) {
 
+    }
+
+    @Override
+    public void saveVideosForThePlaylist(Document doc, Playlist playlist) {
+        List<String> videoTitles = HtmlParser.getVideoTitles(doc);
+        List<String> durations = HtmlParser.getVideoDurations(doc);
+        List<String> videoCodes = HtmlParser.getVideoCodes(doc);
+
+        for(int i = 0; i < videoTitles.size(); i++) {
+            Video video = new Video(videoTitles.get(i), durations.get(i), videoCodes.get(i));
+            video.setPlaylist(playlist);
+            playlist.getVideos().add(video);
+            videoDao.save(video);
+        }
     }
 
     @Override

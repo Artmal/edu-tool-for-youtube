@@ -6,17 +6,20 @@
 <head>
     <title>My Profile</title>
 
-    <link href="${contextPath}/resources/css/stylesForPages/myProfilePage.css.css" rel="stylesheet" type="text/css">
+    <link href="${contextPath}/resources/css/stylesForPages/myProfilePage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <%@include file="../../resources/header.jsp" %>
 
-    <div>
-        Username: ${username};
-        Amount Of Playlists: ${amountOfPlaylists};
+    <div id = "wrapper">
+        <div id="profileBlock">
+            Username: ${username}
+            <br>
+            Amount Of Playlists: ${amountOfPlaylists}
+        </div>
     </div>
 
-    <script>
+    <script type="text/javascript">
         document.getElementById("myProfileButton").classList.add("active");
     </script>
 </body>

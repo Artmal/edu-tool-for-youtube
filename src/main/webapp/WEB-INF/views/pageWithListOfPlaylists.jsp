@@ -57,7 +57,7 @@
 
     </div>
 
-    <script>
+    <script type="text/javascript">
         document.getElementById("myPlaylistsButton").classList.add("active");
     </script>
 </body>

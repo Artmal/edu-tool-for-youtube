@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,12 +32,38 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     @Transactional
-    public long save(Playlist playlist) {
+    public long save(Playlist playlist, String subjectTitle) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User loggedInUser = userService.findByUsername(auth.getName());
+
+        if(subjectService.findByTitle(subjectTitle) != null) {
+            playlist.setSubject(subjectService.findByTitle((subjectTitle)));
+        } else {
+            Subject subject = new Subject(subjectTitle, loggedInUser);
+            playlist.setSubject(subject);
+        }
+
+
         if(playlistDao.findByLink(playlist.getLink()) != null) {
             return playlist.getId();
         } else {
+            loggedInUser.getPlaylists().add(playlist);
             playlistDao.save(playlist);
             return playlistDao.findByLink(playlist.getLink()).getId();
+        }
+    }
+
+    @Override
+    @Transactional
+    public void save(long playlistId) {
+        Playlist playlist = playlistDao.findById(playlistId);
+
+        if(playlistDao.findByLink(playlist.getLink()) != null) {
+        } else {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            User loggedInUser = userService.findByUsername(auth.getName());
+            loggedInUser.getPlaylists().add(playlist);
+            playlistDao.save(playlist);
         }
     }
 
@@ -50,6 +77,23 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Transactional(readOnly = true)
     public Set<Playlist> findAllByUsers(User user) {
         return playlistDao.findAllByUsers(user);
+    }
+
+
+    @Override
+    @Transactional
+    public List<String> initializeListOfSubjects() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User loggedInUser = userService.findByUsername(auth.getName());
+
+        Set<Playlist> playlistList = playlistDao.findAllByUsers(loggedInUser);
+
+        List<String> videosSubjects = new ArrayList<>();
+        for(Playlist p : playlistList) {
+            videosSubjects.add(p.getSubject().getTitle());
+        }
+
+        return videosSubjects;
     }
 
     @Override

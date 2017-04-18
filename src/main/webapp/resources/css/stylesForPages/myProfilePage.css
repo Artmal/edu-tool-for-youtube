@@ -1,1 +1,15 @@
 @import "/resources/css/header.css";
+
+div#wrapper {
+    text-align: center;
+}
+
+
+div#profileBlock {
+    margin: 5px;
+    height: 100px;
+    width: 150px;
+    border: 2px solid black;
+    border-radius: 10px;
+    display: inline-block;
+}

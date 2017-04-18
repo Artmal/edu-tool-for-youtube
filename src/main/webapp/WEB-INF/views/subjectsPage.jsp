@@ -31,7 +31,7 @@
         </table>
     </c:if>
 
-    <script>
+    <script type="text/javascript">
         document.getElementById("mySubjectsButton").classList.add("active");
     </script>
 </body>
