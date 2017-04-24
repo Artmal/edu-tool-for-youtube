@@ -1,7 +1,13 @@
 package com.artmal.edu_tool_for_youtube.model;
 
-
 import javax.persistence.*;
+
+/**
+ * Simple JavaBean domain object that represents a VideoNote for Youtube video.
+ *
+ * @author Artem Malchenko
+ * @version 1.0
+ */
 
 @Entity
 @Table(name = "video_notes")

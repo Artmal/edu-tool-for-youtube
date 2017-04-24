@@ -16,14 +16,14 @@ public class PlaylistController {
     @Autowired
     PlaylistService playlistService;
     
-    @RequestMapping(value = "/playlist/change", method = RequestMethod.GET)
-    public String changePlaylist(Model model, @RequestParam("id") long videoId) {
+    @RequestMapping(value = "/playlist/changeVideoCompleteness", method = RequestMethod.GET)
+    public String changePlaylist(Model model, @RequestParam("video_id") long videoId) {
         videoService.changeValueOfCompleteness(model, videoId);
         return "playlistPage";
     }
 
-    @RequestMapping(value = "/playlist/delete", method = RequestMethod.GET)
-    public String deletePlaylist(Model model, @RequestParam("id") long playlistId) {
+    @RequestMapping(value = "/playlist/deletePlaylist", method = RequestMethod.GET)
+    public String deletePlaylist(Model model, @RequestParam("playlist_id") long playlistId) {
         playlistService.deleteById(model, playlistId);
         return "pageWithListOfPlaylists";
     }

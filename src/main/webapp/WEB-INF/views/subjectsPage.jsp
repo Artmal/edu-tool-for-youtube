@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="contextPath" value="${request.contextPath}"/>
 
 <html>
 <head>
@@ -21,16 +21,17 @@
                 <td>ID</td>
                 <td>Title</td>
             </tr>
-            <c:forEach items="${listOfSubjects}" var="element">
+            <c:forEach items="${listOfSubjects}" var="video">
                 <c:set var="count" value="${count + 1}" scope="page"/>
                 <tr>
                     <td>${count}</td>
-                    <td><a href="${contextPath}/subject?subject_id=${element.id}">${element.title}</a></td>
+                    <td><a href="${contextPath}/subject?subject_id=${video.id}">${video.title}</a></td>
                 </tr>
             </c:forEach>
         </table>
     </c:if>
 
+    <!-- Make appropriate menu item on header active -->
     <script type="text/javascript">
         document.getElementById("mySubjectsButton").classList.add("active");
     </script>

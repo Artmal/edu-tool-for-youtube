@@ -4,7 +4,6 @@ import com.artmal.edu_tool_for_youtube.model.Playlist;
 import com.artmal.edu_tool_for_youtube.model.User;
 import com.artmal.edu_tool_for_youtube.model.Video;
 import com.artmal.edu_tool_for_youtube.service.PlaylistService;
-import com.artmal.edu_tool_for_youtube.service.SubjectService;
 import com.artmal.edu_tool_for_youtube.service.UserService;
 import com.artmal.edu_tool_for_youtube.service.VideoService;
 import com.artmal.edu_tool_for_youtube.utils.HtmlParser;
@@ -31,8 +30,6 @@ public class PlaylistsController {
     private UserService userService;
     @Autowired
     private VideoService videoService;
-    @Autowired
-    private SubjectService subjectService;
 
     @RequestMapping(value = {"/", "/list-of-playlists"}, method = RequestMethod.GET)
     public String welcome(Model model) {
@@ -68,10 +65,10 @@ public class PlaylistsController {
     }
 
     @RequestMapping(value = "/playlist", method = RequestMethod.GET)
-    public String showPlaylist(Model model, @RequestParam("id") long id) {
-        List<Video> listOfVideos = videoService.findAllByPlaylistId(id);
+    public String showPlaylist(Model model, @RequestParam("id") long playlistId) {
+        List<Video> listOfVideos = videoService.findAllByPlaylistId(playlistId);
         model.addAttribute("listOfVideos", listOfVideos);
-        model.addAttribute("playlistId", id);
+        model.addAttribute("playlistId", playlistId);
         return "playlistPage";
     }
 }
