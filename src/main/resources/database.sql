@@ -24,7 +24,7 @@ CREATE TABLE user_roles (
   UNIQUE (user_id, role_id)
 )
   ENGINE = InnoDB;
-
+  
 -- Table: playlists
 CREATE TABLE playlists(
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -78,4 +78,4 @@ CREATE TABLE subjects(
 
   FOREIGN KEY (user_id) REFERENCES users(id)
 )
-  ENGINE = InnoDB;
+ENGINE = InnoDB;
